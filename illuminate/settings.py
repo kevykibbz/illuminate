@@ -19,7 +19,7 @@ DEBUG = False
 if DEBUG:
     ALLOWED_HOSTS = []
 else:
-    ALLOWED_HOSTS = ['illuminate-africa-initiative.herokuapp.com','www.illuminate-africa-initiative.herokuapp.com']
+    ALLOWED_HOSTS = ['illuminate-africa-initiative.herokuapp.com','www.illuminate-africa-initiative.herokuapp.com',]
 
 SITE_ID=2
 AUTHENTICATION_BACKENDS = [

@@ -19,7 +19,6 @@ import json
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import update_session_auth_hash
-import razorpay
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django import template
 import math
