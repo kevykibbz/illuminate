@@ -207,7 +207,7 @@ else:
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 
-BASE_URL=env('BASE_URL')
+BASE_URL='https://illuminate-africa-initiative.herokuapp.com'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
