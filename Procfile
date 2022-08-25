@@ -1,1 +1,1 @@
-web: gunicorn my24loan.wsgi --log-file -
+web: gunicorn illuminate.wsgi --log-file -
