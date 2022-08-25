@@ -22,6 +22,9 @@ else:
     ALLOWED_HOSTS = ['illuminate-africa-initiative.herokuapp.com','www.illuminate-africa-initiative.herokuapp.com']
 
 SITE_ID=2
+
+BASE_URL=env('BASE_URL')
+
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
