@@ -211,9 +211,9 @@ BASE_URL='https://illuminate-africa-initiative.herokuapp.com'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EMAIL_HOST=env('EMAIL_HOST')
-EMAIL_HOST_USER=env('EMAIL_USER')
-EMAIL_HOST_PASSWORD=env('EMAIL_PASSWORD')
+EMAIL_HOST='mail.anchortrends.com'
+EMAIL_HOST_USER='kibbz@anchortrends.com'
+EMAIL_HOST_PASSWORD='@Kevykibbz1999'
 EMAIL_USE_TLS=True
 EMAIL_PORT=587 
 DEFAULT_FROM_EMAIL=EMAIL_HOST_USER
