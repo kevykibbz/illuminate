@@ -23,7 +23,6 @@ else:
 
 SITE_ID=2
 
-BASE_URL=env('BASE_URL')
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -182,6 +181,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+BASE_URL=env('BASE_URL')
 
 #login
 LOGIN_URL='/panel/accounts/login'
