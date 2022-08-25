@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY ='django-insecure-gc0xk%161=9z-t0jxnib_(#&e(4n^)q(#^($*a3t2e8v6)*!0j'
+SECRET_KEY =env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -22,8 +22,6 @@ else:
     ALLOWED_HOSTS = ['illuminate-africa-initiative.herokuapp.com','www.illuminate-africa-initiative.herokuapp.com']
 
 SITE_ID=2
-
-
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
@@ -207,13 +205,13 @@ else:
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 
-BASE_URL='https://illuminate-africa-initiative.herokuapp.com'
+BASE_URL=env('BASE_URL')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EMAIL_HOST='mail.anchortrends.com'
-EMAIL_HOST_USER='kibbz@anchortrends.com'
-EMAIL_HOST_PASSWORD='@Kevykibbz1999'
+EMAIL_HOST=env('EMAIL_HOST')
+EMAIL_HOST_USER=env('EMAIL_USER')
+EMAIL_HOST_PASSWORD=env('EMAIL_PASSWORD')
 EMAIL_USE_TLS=True
 EMAIL_PORT=587 
 DEFAULT_FROM_EMAIL=EMAIL_HOST_USER

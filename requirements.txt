@@ -18,5 +18,3 @@ django-timezone-field==4.2.3
 Babel==2.9.1
 requests
 django-cleanup
-geoip2
-razorpay
