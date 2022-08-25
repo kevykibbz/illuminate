@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCType html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="copyright" content="Legit Crew, https://www.devme.com/">
+    <title>{% if obj.site_name %} {{obj.site_name}}  {% else %} {{site_name}} {% endif %} | {{title}}</title>
+    <meta name="author" content="{{designer_name}}">
+    <meta name="theme-color" content="{{obj.theme_color}}">
+    <meta name="msapplication-navbutton-color" content="{{obj.theme_color}}">
+    <meta name="apple-mobile-web-app-status-bar-style" content="{{obj.theme_color}}">
+    <meta property="og:site_name" content="{{obj.site_name}}">
+    <meta property="og:url" content="{{obj.site_url}}">
+    <meta http-equiv="Content-type" content="text/html;charset:utf-8">
+    <meta property="og:type" content="website"> 
+    <meta property="og:type" content="website"> 
+    <meta property="twitter:site" content="https://twitter.com/Kevin36285655">
+    <meta property="twitter:title" content="@Kevin36285655">
+    <meta property="twitter:image" content="https://twitter.com/Kevin36285655/photo">
+    <meta property="twitter:description" content="Life's Simple.">
+    <meta property="twitter:text:title" content="Life's Simple.">
+    <meta property="og:title" content="{{obj.site_name}} | {{title}}">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:description" content="{{obj.description}}">
+    <meta property="og:image" content="{% static 'manager/images/icon/favicon.ico' %}">
+    <meta name="apple-mobile-web-app-title" content="{{obj.site_name}}">
+    <meta name="application-name" content="{{obj.site_name}}">
+    <meta name="msapplication-TileColor" content="{{obj.theme_color}}">
+    <meta name="msapplication-config" content="{% static 'manager/assets/images/logos/browserconfig.xml' %}">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="icon" href="{% static 'manager/images/icon/favicon.ico' %}" type="image/x-icon">
+    <link rel="mask-icon" href="{% static 'manager/assets/images/logos/safari-pinned-tab.svg' %}" color="#666666">
+    <link rel="manifest" href="{% static 'manager/assets/images/logos/site.html' %}">
+    <link rel="stylesheet" href="{% static 'manager/assets/plugins/jquery-datatable/dataTables.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'manager/assets/css/font-awesome.min.css' %}">
+    <link href="//fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/css/animate.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="{% static 'manager/assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'panel/assets/css/custom.css' %}"> 
+    <link href="//fonts.googleapis.com/css?family=Muli:300,300i,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,500,700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'panel/assets/css/vendors.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'panel/assets/css/style.css' %}" />
+    <style>
+      
+    </style>
+  </head>
+  <body class="bg-white">
+    <!-- begin app -->
+    <div class="app">
+      <!-- begin app-wrap -->
+      <div class="app-wrap">
+        <!-- begin pre-loader -->
+        <div class="loader">
+          <div class="h-100 d-flex justify-content-center">
+              <div class="align-self-center">
+                  <img src="{% static 'panel/assets/img/loader/loader.svg' %}" alt="{{obj.site_name}} loader">
+              </div>
+          </div>
+      </div>
+      <!-- end pre-loader -->
+      {% block body %}
+      {% endblock %}
+      </div>
+    </div>
+    <script src="{% static 'panel/assets/js/vendors.js' %}"></script>
+    <script src="{% static 'panel/assets/js/app.js' %}"></script> 
+    <script src="{% static 'panel/assets/js/custom.js' %}"></script> 
+  </body>
+  </html>

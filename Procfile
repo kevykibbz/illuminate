@@ -1,0 +1,1 @@
+web: gunicorn my24loan.wsgi --log-file -

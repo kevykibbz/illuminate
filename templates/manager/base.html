@@ -1,0 +1,236 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="copyright" content="Legit Crew, https://www.devme.com/">
+    <title>{% if obj.site_name %} {{obj.site_name}}  {% else %} {{site_name}} {% endif %} | {{title}}</title>
+    <meta name="description" content="{{obj.description}}">
+    <meta name="author" content="{{designer_name}}">
+    <meta name="theme-color" content="{{obj.theme_color}}">
+    <meta name="msapplication-navbutton-color" content="{{obj.theme_color}}">
+    <meta name="apple-mobile-web-app-status-bar-style" content="{{obj.theme_color}}">
+    <meta name="keywords" content="{{obj.key_words}}">
+    <meta property="og:site_name" content="{{obj.site_name}}">
+    <meta property="og:url" content="{{obj.site_url}}">
+    <meta http-equiv="Content-type" content="text/html;charset:utf-8">
+    <meta property="og:type" content="website"> 
+    <meta property="og:type" content="website"> 
+    <meta property="twitter:site" content="https://twitter.com/Kevin36285655">
+    <meta property="twitter:title" content="@Kevin36285655">
+    <meta property="twitter:image" content="https://twitter.com/Kevin36285655/photo">
+    <meta property="twitter:description" content="Life's Simple.">
+    <meta property="twitter:text:title" content="Life's Simple.">
+    <meta property="og:title" content="{{obj.site_name}} | {{title}}">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:description" content="{{obj.description}}">
+    <meta property="og:image" content="{% static 'manager/assets/images/logos/favicon.ico' %}">
+    <meta name="apple-mobile-web-app-title" content="{{obj.site_name}}">
+    <meta name="application-name" content="{{obj.site_name}}">
+    <meta name="msapplication-TileColor" content="{{obj.theme_color}}">
+    <meta name="msapplication-config" content="{% static 'manager/assets/images/logos/browserconfig.xml' %}">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="canonical" href="{{request.get_full_path}}" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <link rel="shortcut icon" href="{% static 'manager/assets/images/fav.png' %}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="assets/images/fav.jpg">
+    <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/css/all.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/css/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/plugins/slider/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/plugins/slider/css/owl.theme.default.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/css/custom.css' %}" />
+</head>
+<body onload="load()">
+    <!-- preloader -->
+     <div class="placeholder">
+        <div class="overlay">
+            <div class="row">
+                <div class="col-12">
+                     <div class="loader-container">
+                       <div class="loader">
+                         <svg class="circular" viewBox="25 25 50 50">
+                           <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                         </svg>
+                       </div>
+                     </div>
+                </div>
+            </div>
+         </div>
+     </div>
+    <!-- //preloader -->
+    <div class="main-display " style="display:none">
+       <header class="continer-fluid ">
+            <div  class="header-top">
+                <div class="container">
+                    <div class="row col-det">
+                        <div class="col-lg-6 d-none d-lg-block">
+                            <ul class="ulleft">
+                                <li>
+                                    <i class="far fa-envelope"></i>
+                                     {{obj.site_email}}
+                                    <span>|</span></li>
+                                <li>
+                                    <i class="fas fa-phone-volume"></i>
+                                    {{obj.phone}}</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-md-6 folouws">
+                            <ul class="ulright">
+                            <li> <small>Folow Us </small>:</li>
+                                <li>
+                                    <a  target="_blank" href="{{obj.facebook}}"><i class="fab fa-facebook-square"></i></a>
+                                </li>
+                                <li>
+                                    <a  target="_blank" href="{{obj.twitter}}"><i class="fab fa-twitter-square"></i></a>
+                                </li>
+                                <li>
+                                    <a  target="_blank" href="{{obj.instagram}}"><i class="fab fa-instagram"></i></a>
+                                </li>
+                                <li>                    
+                                    <a target="_blank" href="{{obj.whatsapp}}"><i class="fab fa-whatsapp"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 d-none d-md-block col-md-6 btn-bhed">
+                            <button class="btn btn-sm btn-success">Join Us</button>
+                            <button class="btn btn-sm btn-default">Donate</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="menu-jk" class="header-bottom">
+                <div class="container">
+                    <div class="row nav-row">
+                        <div class="col-lg-3 col-md-12 logo">
+                            <a href="index.html">
+                                <img src="{% static 'manager/assets/images/logo.jpg' %}" alt="">
+                                <a data-toggle="collapse" data-target="#menu" href="#menu"><i class="fas d-block d-lg-none  small-menu fa-bars"></i></a>
+                            </a>
+
+                        </div>
+                        <div id="menu" class="col-lg-9 col-md-12 d-none d-lg-block nav-col">
+                            <ul class="navbad">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="index.html">Home
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">About Us</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Services</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Gallery</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Blog</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Contact US</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </header>
+        {% block body %}
+        
+        {% endblock %}
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <h2>About Us</h2>
+                        <p>
+                            Smart Eye is a leading provider of information technology, consulting, and business process services. Our dedicated employees offer strategic insights, technological expertise and industry experience.
+                        </p>
+                        <p>We focus on technologies that promise to reduce costs, streamline processes and speed time-to-market, Backed by our strong quality processes and rich experience managing global... </p>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <h2>Useful Links</h2>
+                        <ul class="list-unstyled link-list">
+                            <li><a ui-sref="about" href="#/about">About us</a><i class="fa fa-angle-right"></i></li>
+                            <li><a ui-sref="portfolio" href="#/portfolio">Portfolio</a><i class="fa fa-angle-right"></i></li>
+                            <li><a ui-sref="products" href="#/products">Latest jobs</a><i class="fa fa-angle-right"></i></li>
+                            <li><a ui-sref="gallery" href="#/gallery">Gallery</a><i class="fa fa-angle-right"></i></li>
+                            <li><a ui-sref="contact" href="#/contact">Contact us</a><i class="fa fa-angle-right"></i></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 col-sm-12 map-img">
+                        <h2>Contact Us</h2>
+                        <address class="md-margin-bottom-40">
+                            {{obj.address}} <br>
+                            {{obj.location}} <br>
+                            Phone: {{obj.phone}} <br>
+                            Email: <a href="mailto:{{obj.site_email}}" class="">{{obj.site_email}}</a><br>
+                            Web: <a href="{% url 'dashboard' %}" class="">{{obj.site_url}}</a>
+                        </address>
+
+                    </div>
+                </div>
+                <div class="nav-box row clearfix">
+                    <div class="inner col-md-9 clearfix">
+                        <ul class="footer-nav clearfix">
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Gallery</a></li>
+                            <li><a href="#">Servies</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="donate-link col-md-3"><a href="donate.html" class="btn btn-primary "><span class="btn-title">Donate Now</span></a></div>
+                </div>   
+            </div>
+        </footer>
+        <div class="copy">
+            <div class="container">
+                <a target="_blank" href="{{designer_link}}">{% now 'Y' %} &copy; All Rights Reserved | Designed and Developed by {{designer_name}}</a>
+                <span>
+                    <a target="_blank" href="{{obj.github}}"><i class="fab fa-github"></i></a>
+                    <a target="_blank" href="{{obj.instagram}}"><i class="fab fa-instagram"></i></a>
+                    <a target="_blank" href="{{obj.whatsapp}}"><i class="fab fa-whatsapp"></i></a>
+                    <a target="_blank" href="{{obj.twitter}}"><i class="fab fa-twitter"></i></a>
+                    <a target="_blank" href="{{obj.facebook}}"><i class="fab fa-facebook-f"></i></a>
+                </span>
+            </div>
+        </div>
+        <!-- Small Modal -->
+        <div class="modal fade small-model bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mySmallModalLabel"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'manager/assets/js/jquery-3.5.1.min.js' %}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'manager/assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'manager/assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'manager/assets/js/custom.js' %}"></script>
+    <script src="{% static 'manager/assets/js/wow.min.js' %}"></script>
+    <script src="{% static 'manager/assets/js/popper.min.js' %}"></script>
+    <script src="{% static 'manager/assets/plugins/scroll-fixed/jquery-scrolltofixed-min.js' %}"></script>
+    <script src="{% static 'manager/assets/plugins/slider/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'manager/assets/js/script.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block body %}
+ <div class="container-fluid">
+    <div class="row">
+        <div class="col-12 m-b-30">
+            <div class="card card-statistics dating-contant h-100 mb-0">
+               <div class="card-header">
+                  <div class="row">
+                     <div class="col-6">
+                        <h4 class="card-title">View all employees</h4>
+                     </div>
+                     <div class="col-6 text-right">
+                        <a href="{% url 'add employees' %}" class="btn btn-primary">add employee</a>
+                     </div>
+                  </div>
+               </div>
+                  <div class="card-body pt-2 scrollbar scroll_dark" style="height:600px">
+                     <div class="table-responsive table-results">
+                        <table id="datatable-buttons" class="table table-striped">
+                           <thead>
+                               <tr>
+                                   <th class="border-top-0">No.</th>
+                                   <th class="border-top-0">Name</th>
+                                   <th class="border-top-0">User Name</th>
+                                   <th class="border-top-0">Email</th>
+                                   <th class="border-top-0">Status</th>
+                                   <th class="border-top-0">Date</th>
+                                   <th class="border-top-0">Action</th>
+                               </tr>
+                           </thead>
+                           <tbody class="text-muted">
+                              {% if employees %}
+                                {% for employee in employees %}
+                                  <tr id="id_{{employee.id}}">
+                                      <td>{{forloop.counter}}</td>
+                                      <td>
+                                          <div class="bg-img">
+                                              <img class="img-fluid" src="/media/profiles/{{employee.extendedauthuser.profile_pic.url}}" alt="{{employee.first_name}} {{employee.last_name}}" data-toggle="tooltip" title="{{employee.first_name}} {{employee.last_name}}">
+                                          </div>
+                                          <p>{{employee.first_name}} {{employee.last_name}}</p>
+                                      </td>
+                                      <td>{{employee.username}}</td>
+                                      <td>{{employee.email}}</td>
+                                      <td>
+                                          {% if employee.extendedauthuser.role == 'employee' and employee.is_superuser %}
+                                          <label class="badge mb-0 badge-success-inverse">superemployee</label>
+                                          {% elif employee.extendedauthuser.role == 'employee' %}
+                                          <label class="badge mb-0 badge-primary-inverse">employee</label>
+                                          {% else %}
+                                          <label class="badge mb-0 badge-info-inverse">employee</label>
+                                          {% endif %}
+                                      </td>
+                                      <td>{{employee.date_joined}}</td>
+                                      <td>
+                                          {% if employee.is_superuser %}
+                                             {% if employee.is_superuser and data.is_superuser %}
+                                             <a href="#" class="btn btn-icon btn-outline-primary btn-round mr-2 mb-2 mb-sm-0 "><i class="ti ti-pencil" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i></a>
+                                             {% else %}
+                                             <a href="javascript:void(0)" class="btn  btn-icon btn-outline-primary btn-round mr-2 mb-2 mb-sm-0 "><i class="ti ti-pencil" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i></a>
+                                             {% endif %}
+                                          {% else %}
+                                          <a href="{% url 'edit employee' id=employee.id %}" class="btn btn-icon btn-outline-primary btn-round mr-2 mb-2 mb-sm-0 "><i class="ti ti-pencil" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i></a>
+                                          {% endif %}
+                                          {% if employee.is_superuser %}
+                                          <a href="javascript:void(0)" class="btn btn-icon btn-outline-danger btn-round"><i class="ti ti-close" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i></a>
+                                          {% else %}
+                                          <a class="del-data btn btn-icon btn-outline-danger btn-round" data-host="{% url 'site employees' %}" href="{% url 'delete employee' id=employee.id  %}"><i class="ti ti-close" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i></a>
+                                          {% endif %}
+                                      </td>
+                                  </tr>
+                                 {% endfor %}
+                              {% else %}
+                              <tr>
+                                 <td colspan="7" class="text-center text-info">
+                                    <i class="fa fa-exclamation-circle"></i> no employee(s) data found
+                                 </td>
+                              </tr>
+                              {% endif %}
+                           </tbody>
+                       </table>
+                     </div>
+                     <ul class="pagination pagination-primary mt-4">
+                        {% if employees.has_previous %}
+                           <li class="page-item active mr-2"></i><a  href="{% url 'site employees' %}?page={{employees.previous_page_number}}" class="btn btn-icon btn-outline-primary btn-round"><i class="dripicons dripicons-chevron-left" data-toggle="tooltip" data-placement="top" title="Previous" data-original-title="Previous"></i></a></li>
+                        {% endif %}
+                        {% if employees.has_next %}
+                        <li class="page-item active"><a  href="{% url 'site employees' %}?page={{employees.previous_page_number}}" class="btn btn-icon btn-outline-info btn-round"><i class="dripicons dripicons-chevron-right" data-toggle="tooltip" data-placement="top" title="Next" data-original-title="Next"></i></a></li>
+                        {% endif %}
+                    </ul>
+                  </div>
+               </div>
+            </div>
+      </div>
+</div>
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+{% load indian_currency %}
+{% load humanize %}
+{% block body %}
+ <div class="container-fluid">
+    <div class="row">
+        <div class="col-12 m-b-30">
+            <div class="card card-statistics dating-contant h-100 mb-0">
+               <div class="card-header">
+                    <h4 class="card-title">View all applications</h4>
+               </div>
+                  <div class="card-body pt-2 scrollbar scroll_dark" style="height:600px">
+                    <div class="row mb-4">
+                        <div class="col-12">
+                           <p><b>Filter Datewise</b></p>
+                        </div>          
+                        <div class="col-12">
+                            <form action="{% url 'franchise applications' %}" class="dateForm form-inline">
+                                <div class="form-group">
+                                    <input placeholder="Start typing..." class="form-control dateranger" type="text" name="datefilter" value="" />
+                                </div>
+                                <button class="btn btn-primary"><i class="dripicons dripicons-experiment"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="export-table-wrapper table-responsive table-results">
+                        <table id="export-table" class="table table-striped">
+                           <thead class="thead-light">
+                               <tr>
+                                   <th class="border-top-0">No.</th>
+                                   <th class="border-top-0">Name</th>
+                                   <th class="border-top-0">Phone</th>
+                                   <th class="border-top-0">Email</th>
+                                   <th class="border-top-0">Full Address</th>
+                                   <th class="border-top-0">State</th>
+                                   <th class="border-top-0">Category</th>
+                                   <th class="border-top-0">Monthly Income</th>
+                                   <th class="border-top-0">Loan Purpose</th>
+                                   <th class="border-top-0">Cibil Score</th>
+                                   <th class="border-top-0">Monthly EMI Payment</th>
+                                   <th class="border-top-0">Credit Limit</th>
+                                   <th class="border-top-0">Amount Due</th>
+                                   <th class="border-top-0">Amount Paid</th>
+                                   <th class="border-top-0">Alloted Card Number</th>
+                                   <th class="border-top-0">Tenure </th>
+                                   <th class="border-top-0">EMI </th>
+                                   <th class="border-top-0">Status</th>
+                                   <th class="border-top-0">Payment Status</th>
+                                   <th class="border-top-0">Created on</th>
+                                   <th class="border-top-0">Action</th>
+                               </tr>
+                           </thead>
+                           <tbody class="text-muted">
+                              {% if applications %}
+                                {% for application in applications %}
+                                  <tr id="id_{{application.loanid}}">
+                                      <td>{{forloop.counter}}</td>
+                                      <td>{{application.name}}</td>
+                                      <td>{{application.phone}}</td>
+                                      <td>{{application.email}}</td>
+                                      <td>{{application.city}}</td>
+                                      <td>{{application.state}}</td>
+                                      <td>{{application.category}}</td>
+                                      <td><i class="fa fa-inr"></i> {{application.monthly_income|indian_currency}}</td>
+                                      <td data-toggle="tooltip" data-placement="top" title="View Purpose" data-original-title="View Purpose" data-tip="{{application.name}}'s purpose posted on {{application.created_on}}" class="text-truncate view" style="cursor:pointer;">{{application.loan_purpose}}</td>
+                                      <td>{{application.cibil_score}}</td>
+                                      <td><i class="fa fa-inr"></i> {{application.monthly_emi|indian_currency}}</td>
+                                      <td><i class="fa fa-inr"></i> {{application.amount|indian_currency}}</td>
+                                      <td><i class="fa fa-inr"></i> {{application.amount_due|indian_currency}}</td>
+                                      <td><i class="fa fa-inr"></i> {{application.amount_paid|indian_currency}}</td>
+                                      <td>{{application.card_number}}</td>
+                                      <td>{{application.tenature}} Months</td>
+                                      <td><i class="fa fa-inr"></i> {{application.emi|indian_currency}}</td>
+                                      <td>
+                                        {% if application.status == 'Pending' %}
+                                            <label class="badge mb-0 badge-info-inverse">{{application.status}}</label>
+                                        {% else %}
+                                            <label class="badge mb-0 badge-success-inverse">{{application.status}}</label>
+                                        {% endif %}
+                                      </td>
+                                      <td>
+                                        {% if application.status %}
+                                        <label class="badge mb-0 badge-success-inverse">Yes</label>
+                                        {% else %}
+                                        <label class="badge mb-0 badge-danger-inverse">No</label>
+                                        {% endif %}
+                                      </td>
+                                      <td>{{application.created_on}}</td>
+                                       <td>
+                                        {% if data.extendedauthuser.role == 'Admin' %}
+                                            <a href="{% url 'edit loan' loanid=application.loanid %}" class="btn btn-icon btn-outline-primary btn-round mr-2 mb-2 mb-sm-0 "><i class="ti ti-pencil" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i></a>
+                                            <a class="del-data btn btn-icon btn-outline-danger btn-round" data-host="{% url 'franchise applications' %}" href="{% url 'delete loan' loanid=application.loanid  %}"><i class="ti ti-close" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i></a>
+                                        {% else %}
+                                          <a href="javascript:void(0)" class="btn btn-icon btn-outline-danger btn-round"><i class="ti ti-close" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i></a>
+                                          <a class="btn btn-icon btn-outline-danger btn-round" href="javascript:void(0)"><i class="ti ti-close" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i></a>
+                                         
+                                        {% endif %}
+                                      </td>
+                                  </tr>
+                                 {% endfor %}
+                              {% else %}
+                              <tr>
+                                 <td colspan="18" class="text-center text-info">
+                                    <i class="fa fa-exclamation-circle"></i> no applications data found
+                                 </td>
+                              </tr>
+                              {% endif %}
+                           </tbody>
+                       </table>
+                     </div>
+                  </div>
+                  <ul class="pagination pagination-primary mt-4">
+                    {% if applications.has_previous %}
+                       <li class="page-item active mr-2"></i><a  href="{% url 'franchise applications' %}?page={{applications.previous_page_number}}" class="btn btn-icon btn-outline-primary btn-round"><i class="dripicons dripicons-chevron-left" data-toggle="tooltip" data-placement="top" title="Previous" data-original-title="Previous"></i></a></li>
+                    {% endif %}
+                    {% if applications.has_next %}
+                    <li class="page-item active"><a  href="{% url 'franchise applications' %}?page={{applications.previous_page_number}}" class="btn btn-icon btn-outline-info btn-round"><i class="dripicons dripicons-chevron-right" data-toggle="tooltip" data-placement="top" title="Next" data-original-title="Next"></i></a></li>
+                    {% endif %}
+                </ul>
+               </div>
+            </div>
+      </div>
+</div>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block body %}
+ <div class="container-fluid">
+   <div class="row">
+      <div class="col-md-12 m-b-30">
+          <!-- begin page title -->
+          <div class="d-block d-sm-flex flex-nowrap align-items-center">
+              <div class="page-title mb-2 mb-sm-0">
+                  <h1>Edit Query</h1>
+              </div>
+              <div class="ml-auto d-flex align-items-center">
+                  <nav>
+                      <ol class="breadcrumb p-0 m-b-0">
+                          <li class="breadcrumb-item">
+                              <a  href="{% url 'admin dashboard' %}"><i class="ti ti-home"></i></a>
+                          </li>
+                          <li class="breadcrumb-item">
+                              <a href="{% url 'admin dashboard' %}">Home</a>
+                          </li>
+                          <li class="breadcrumb-item active text-primary" aria-current="page"> View queries</li>
+                      </ol>
+                  </nav>
+              </div>
+          </div>
+          <!-- end page title -->
+      </div>
+  </div>
+    <div class="row">
+        <div class="col-12 m-b-30">
+            <div class="card card-statistics dating-contant h-100 mb-0">
+               <div class="card-header">
+                <h4 class="card-title">View all queries</h4>
+               </div>
+                  <div class="card-body pt-2 scrollbar scroll_dark" style="height:600px">
+                    <div class="table-responsive table-results">
+                        <table id="datatable-buttons" class="table table-striped">
+                           <thead>
+                               <tr>
+                                   <th class="border-top-0">No.</th>
+                                   <th class="border-top-0">Name</th>
+                                   <th class="border-top-0">Email</th>
+                                   <th class="border-top-0">Query</th>
+                                   <th class="border-top-0">Answer</th>
+                                   <th class="border-top-0">Status</th>
+                                   <th class="border-top-0">Posted on</th>
+                                   <th class="border-top-0">Action</th>
+                               </tr>
+                           </thead>
+                           <tbody class="text-muted">
+                              {% if queries %}
+                                {% for query in queries %}
+                                  <tr id="id_{{admin.id}}">
+                                      <td>{{forloop.counter}}</td>
+                                      <td>{{query.name}}</td>
+                                      <td>{{query.email}}</td>
+                                      <td data-toggle="tooltip" data-placement="top" title="View Query" data-original-title="View Query" data-tip="{{query.name}}'s Query posted on {{query.date}}" class="text-truncate view" style="cursor:pointer;">{{query.query}}</td>
+                                      <td data-toggle="tooltip" data-placement="top" title="View Answer" data-original-title="View Answer" data-tip="Answer" class="text-truncate view" style="cursor:pointer;">{{query.answer|default:'Not answered'}}</td>
+                                      <td>
+                                          {% if query.answer %}
+                                          <label class="badge mb-0 badge-success-inverse">answered</label>
+                                          {% else %}
+                                          <label class="badge mb-0 badge-danger-inverse">not answered</label>
+                                          {% endif %}
+                                      </td>
+                                      <td>{{query.created_on}}</td>
+                                      <td>
+                                        {% if data.extendedauthuser.role == 'Admin' %}
+                                        <a href="{% url 'edit query' id=query.id  %}" class="mr-2 btn btn-icon btn-outline-primary btn-round"><i class="ti ti-pencil" data-toggle="tooltip" data-placement="top" title="Answer Query" data-original-title="Answer Query"></i></a>
+                                        {% else %}
+                                        <a href="javascript:void(0)" class="mr-2 btn btn-icon btn-outline-primary btn-round"><i class="ti ti-pencil" data-toggle="tooltip" data-placement="top" title="Answer Query" data-original-title="Answer Query"></i></a>
+                                        {% endif %}
+                                        {% if data.extendedauthuser.role != 'Admin'  %}
+                                        <a href="javascript:void(0)" class="btn btn-icon btn-outline-danger btn-round"><i class="ti ti-close" data-toggle="tooltip" data-placement="top" title="Delete Query" data-original-title="Delete Query"></i></a>
+                                        {% else %}
+                                        <a class="del-data btn btn-icon btn-outline-danger btn-round" data-host="{% url 'customers queries' %}" href="{% url 'delete query' id=query.id  %}"><i class="ti ti-close" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i></a>
+                                        {% endif %}
+                                      </td>
+                                  </tr>
+                                 {% endfor %}
+                              {% else %}
+                              <tr>
+                                 <td colspan="8" class="text-center text-info">
+                                    <i class="fa fa-exclamation-circle"></i> no querie(s) data found
+                                 </td>
+                              </tr>
+                              {% endif %}
+                           </tbody>
+                       </table>
+                     </div>
+                  </div>
+                  <ul class="pagination pagination-primary mt-4">
+                    {% if queries.has_previous %}
+                       <li class="page-item active mr-2"></i><a  href="{% url 'customers queries' %}?page={{queries.previous_page_number}}" class="btn btn-icon btn-outline-primary btn-round"><i class="dripicons dripicons-chevron-left" data-toggle="tooltip" data-placement="top" title="Previous" data-original-title="Previous"></i></a></li>
+                    {% endif %}
+                    {% if queries.has_next %}
+                    <li class="page-item active"><a  href="{% url 'customers queries' %}?page={{queries.previous_page_number}}" class="btn btn-icon btn-outline-info btn-round"><i class="dripicons dripicons-chevron-right" data-toggle="tooltip" data-placement="top" title="Next" data-original-title="Next"></i></a></li>
+                    {% endif %}
+                </ul>
+               </div>
+            </div>
+      </div>
+</div>
+{% endblock %}

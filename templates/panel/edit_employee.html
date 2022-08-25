@@ -1,0 +1,94 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+{% block body %}
+ <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 m-b-30">
+            <!-- begin page title -->
+            <div class="d-block d-sm-flex flex-nowrap align-items-center">
+                <div class="page-title mb-2 mb-sm-0">
+                    <h1>Edit Employee</h1>
+                </div>
+                <div class="ml-auto d-flex align-items-center">
+                    <nav>
+                        <ol class="breadcrumb p-0 m-b-0">
+                            <li class="breadcrumb-item">
+                                <a  href="{% url 'admin dashboard' %}"><i class="ti ti-home"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'admin dashboard' %}">Home</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'site employees' %}">View employees</a>
+                            </li>
+                            <li class="breadcrumb-item active text-primary" aria-current="page">Edit {{employee.get_full_name}}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!-- end page title -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-6 mx-auto">
+            <div class="card card-statistics">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title text-capitalize">{{employee.get_full_name }} Details</h4>
+                    </div>
+                </div>
+                <div class="card-body"> 
+                    <form class="RegForm" method="post" action="{% url 'edit employee' id=employee.id %}" novalidate>
+                        {% csrf_token %}
+                        <div class="form-group">               
+                            <label for="id_theme_color">Profile pic</label>
+                            <div class="custom-file" style="cursor:pointer">
+                                {{form1.profile_pic}}
+                                <label for="customFileInput" class="custom-file-label">Browse files</label>
+                            </div>
+                            current: <a class="text-pimary" href="/media/logos{{employee.extendedauthuser.profile_pic.url}}">{{employee.extendedauthuser.profile_pic}}</a>
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_first_name">First Name</label>
+                            {{form1.first_name}}
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_last_name">Last Name</label>
+                            {{form1.last_name}}
+                            <div class="feedback"></div>
+                        </div>
+                       
+                        <div class="form-group">               
+                            <label for="id_email">Email</label>
+                            {{form1.email}}
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="form-group">               
+                            <label for="id_username">Username</label>
+                            {{form1.username}}
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="form-group">               
+                            <label for="id_username">Role</label>
+                            {{form2.role}}
+                            <div class="feedback"></div>
+                        </div>
+                        <label for="id_phone">Phone</label>
+                        <div class="form-group">               
+                            {{form2.phone}}
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="text-center" style="margin-top:60px">
+                            <button type="submit" class="btn btn-primary">
+                                <span></span><span>submit</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>  
+    </div>
+ </div>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block body %}
+ <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 m-b-30">
+            <!-- begin page title -->
+            <div class="d-block d-sm-flex flex-nowrap align-items-center">
+                <div class="page-title mb-2 mb-sm-0">
+                    <h1>View suggestions</h1>
+                </div>
+                <div class="ml-auto d-flex align-items-center">
+                    <nav>
+                        <ol class="breadcrumb p-0 m-b-0">
+                            <li class="breadcrumb-item">
+                                <a  href="{% url 'admin dashboard' %}"><i class="ti ti-home"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'admin dashboard' %}">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active text-primary" aria-current="page">View suggestions</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!-- end page title -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 m-b-30">
+            <div class="card card-statistics dating-contant h-100 mb-0">
+               <div class="card-header">
+                <h4 class="card-title">View all suggestions</h4>
+               </div>
+                  <div class="card-body pt-2 scrollbar scroll_dark" style="height:600px">
+                    <div class="table-responsive table-results">
+                        <table id="datatable-buttons" class="table table-striped">
+                           <thead>
+                               <tr>
+                                   <th class="border-top-0">No.</th>
+                                   <th class="border-top-0">Name</th>
+                                   <th class="border-top-0">Email</th>
+                                   <th class="border-top-0">City</th>
+                                   <th class="border-top-0">State</th>
+                                   <th class="border-top-0">Suggestion</th>
+                                   <th class="border-top-0">Posted on</th>
+                                   <th class="border-top-0">Action</th>
+                               </tr>
+                           </thead>
+                           <tbody class="text-muted">
+                              {% if suggestions %}
+                                {% for suggestion in suggestions %}
+                                  <tr id="id_{{admin.id}}">
+                                      <td>{{forloop.counter}}</td>
+                                      <td>{{suggestion.name}}</td>
+                                      <td>{{suggestion.email}}</td>
+                                      <td>{{suggestion.city}}</td>
+                                      <td>{{suggestion.state}}</td>
+                                      <td data-toggle="tooltip" data-placement="top" title="View Suggestion" data-original-title="View Suggestion" data-tip="{{suggestion.name}}'s Suggestion posted on {{suggestion.date}}" class="text-truncate view" style="cursor:pointer;">{{suggestion.suggestion}}</td>
+                                      <td>{{suggestion.date}}</td>
+                                      <td>
+                                        {% if data.extendedauthuser.role != 'Admin'  %}
+                                        <a href="javascript:void(0)" class="btn btn-icon btn-outline-danger btn-round"><i class="ti ti-close" data-toggle="tooltip" data-placement="top" title="Delete Query" data-original-title="Delete Query"></i></a>
+                                        {% else %}
+                                        <a class="del-data btn btn-icon btn-outline-danger btn-round" data-host="{% url 'customer suggestions' %}" href="{% url 'delete suggestion' id=suggestion.id  %}"><i class="ti ti-close" data-toggle="tooltip" data-placement="top" title="Delete Suggestion" data-original-title="Delete Suggestion"></i></a>
+                                        {% endif %}
+                                      </td>
+                                  </tr>
+                                 {% endfor %}
+                              {% else %}
+                              <tr>
+                                 <td colspan="8" class="text-center text-info">
+                                    <i class="fa fa-exclamation-circle"></i> no suggestion(s) data found
+                                 </td>
+                              </tr>
+                              {% endif %}
+                           </tbody>
+                       </table>
+                     </div>
+                  </div>
+                  <ul class="pagination pagination-primary mt-4">
+                    {% if suggestions.has_previous %}
+                       <li class="page-item active mr-2"></i><a  href="{% url 'customers suggestions' %}?page={{suggestions.previous_page_number}}" class="btn btn-icon btn-outline-primary btn-round"><i class="dripicons dripicons-chevron-left" data-toggle="tooltip" data-placement="top" title="Previous" data-original-title="Previous"></i></a></li>
+                    {% endif %}
+                    {% if suggestions.has_next %}
+                    <li class="page-item active"><a  href="{% url 'customers suggestions' %}?page={{suggestions.previous_page_number}}" class="btn btn-icon btn-outline-info btn-round"><i class="dripicons dripicons-chevron-right" data-toggle="tooltip" data-placement="top" title="Next" data-original-title="Next"></i></a></li>
+                    {% endif %}
+                </ul>
+               </div>
+            </div>
+      </div>
+</div>
+{% endblock %}

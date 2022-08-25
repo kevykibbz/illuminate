@@ -1,0 +1,148 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+{% block body %}
+ <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 m-b-30">
+            <!-- begin page title -->
+            <div class="d-block d-sm-flex flex-nowrap align-items-center">
+                <div class="page-title mb-2 mb-sm-0">
+                    <h1>Edit Profile</h1>
+                </div>
+                <div class="ml-auto d-flex align-items-center">
+                    <nav>
+                        <ol class="breadcrumb p-0 m-b-0">
+                            <li class="breadcrumb-item">
+                                <a  href="{% url 'admin dashboard' %}"><i class="ti ti-home"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'admin dashboard' %}">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active text-primary" aria-current="page">Edit Profile</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!-- end page title -->
+        </div>
+    </div>
+   <div class="row account-contant">
+        <div class="col-12">
+            <div class="card card-statistics">
+                <div class="card-body p-0">
+                    <div class="row no-gutters">
+	                    <div class="col-xl-3 pb-xl-0 pb-5 border-right">
+	                        <div class="page-account-profil">
+	                        	<div class="form-titel border-bottom p-3">
+                                    <h5 class="mb-0 py-2">Edit Your Profile Picture</h5>
+                                </div>
+	                            <div class="profile-img text-center rounded-circle">
+	                                <div class="pt-5 imagecard">
+	                                    <div class="bg-img m-auto" >
+	                                        <img src="/media{{data.extendedauthuser.profile_pic.url}}" class="img-fluid user-image" alt="{{data.get_full_name}}">
+	                                    </div>
+	                                    <div class="profile pt-4">
+	                                        <h4 class="mb-1">{{data.get_full_name}}</h4>
+	                                        <p>{{data.extendedauthuser.role}}</p>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="mt-3 profile-btn text-center">
+	                            	<form class="profileForm" action="{% url 'profile pic' %}" method="post" enctype="multipart/form-data">
+	                            		{% csrf_token %}
+	                            		{{form4.profile_pic}}
+	                            		<a href="javascript:void(0)"  onclick="$('.profile').click();" class="mr-2 btn btn-icon btn-outline-primary btn-round"><i class="fe fe-upload" data-toggle="tooltip" data-placement="top" title="Select  profile picture" data-original-title="Edit"></i></a>
+	                            		<button  style="display:none" class="showthis mr-2 btn btn-icon btn-outline-success btn-round"><i class="fe fe-check" data-toggle="tooltip" data-placement="top" title="Upload profile picture" data-original-title="Edit"></i></button>
+		                                {% if data.extendedauthuser.profile_pic == 'placeholder.jpg' %}
+		                                <a href="javascript:void(0)" class="btn btn-icon btn-outline-danger btn-round"><i class="ti ti-close" data-toggle="tooltip" data-placement="top" title="delete profile picture" data-original-title="Edit"></i></a>
+		                                {% else %}
+		                                <a href="#" class="btn btn-icon btn-outline-danger btn-round"><i class="ti ti-close" data-toggle="tooltip" data-placement="top" title="delete profile picture" data-original-title="Edit"></i></a>
+		                                {% endif %}
+	                            	</form>
+	                            </div>
+	                        </div>
+	                    </div>
+                        <div class="col-xl-5 col-md-6 col-12 border-t border-right">
+                            <div class="page-account-form">
+                                <div class="form-titel border-bottom p-3">
+                                    <h5 class="mb-0 py-2">Edit Your Personal Settings</h5>
+                                </div>
+                                <div class="p-4">
+                    				<form class="RegForm" method="post" action="{% url 'profile' username=data.username %}" novalidate>
+                                    	{% csrf_token %}
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label for="id_first_name">First Name</label>
+                                                {{form1.first_name}}
+                                                <div class="feedback"></div>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="id_last_name">Last Name</label>
+                                                {{form1.last_name}}
+                                                <div class="feedback"></div>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="id_email">Email</label>
+                                                {{form1.email}}
+                                                <div class="feedback"></div>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="id_email">Username</label>
+                                                {{form1.username}}
+                                                <div class="feedback"></div>
+                                            </div>
+
+                                            <label for="">Phone Number</label>
+                                            <div class="form-group col-md-12">
+                                                {{form2.phone}}
+                                                <div class="feedback"></div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                        	<button type="submit" class="btn btn-primary" style="margin-top:50px;">
+                                        		<span></span><span>submit</span>
+                                        	</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                                            <div class="col-xl-4 col-md-6 border-t col-12">
+                                                <div class="page-account-form">
+                                                    <div class="form-titel border-bottom p-3">
+                                                        <h5 class="mb-0 py-2">Edit Your Security Details</h5>
+                                                    </div>
+                                                    <div class="p-4">
+                    									<form class="RegForm" method="post" action="{% url 'change password' %}" novalidate>
+                                                        	{% csrf_token %}
+                                                            <div class="form-group">
+                                                                <label for="fb">Old Password:</label>
+                                                                {{form3.oldpassword}}
+                                                                <div class="feedback"></div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="fb">New Password:</label>
+                                                                {{form3.password1}}
+                                                                <div class="feedback"></div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="fb">Confirm New Password:</label>
+                                                                {{form3.password2}}
+                                                                <div class="feedback"></div>
+                                                            </div>
+                                                            <div class="text-center">
+                                                            	<button class="btn btn-primary">
+                                                            		<span></span><span>submit</span>
+                                                            	</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+</div>
+{% endblock %}

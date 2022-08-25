@@ -1,0 +1,92 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+{% load indian_currency %}
+{% load humanize %}
+{% block body %}
+ <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 m-b-30">
+            <!-- begin page title -->
+            <div class="d-block d-sm-flex flex-nowrap align-items-center">
+                <div class="page-title mb-2 mb-sm-0">
+                    <h1>Approve Loan Requset</h1>
+                </div>
+                <div class="ml-auto d-flex align-items-center">
+                    <nav>
+                        <ol class="breadcrumb p-0 m-b-0">
+                            <li class="breadcrumb-item">
+                                <a  href="{% url 'admin dashboard' %}"><i class="ti ti-home"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'admin dashboard' %}">Home</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{% url 'franchise applications' %}">View loan applications</a>
+                            </li>
+                            <li class="breadcrumb-item active text-primary" aria-current="page">Edit loan application item</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!-- end page title -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-6 mx-auto">
+            <div class="card card-statistics">
+                <div class="card-header">
+                    <div class="card-heading text-center">
+                        <h4 class="card-title text-capitalize">Approve loan application</h4>
+                    </div>
+                </div>
+                <div class="card-body"> 
+                    <form class="RegForm" method="post" action="" novalidate>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_name">Name</label>
+                            <input class="form-control" type="text" value="{{loan.name}}" readonly>
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_name">Category</label>
+                            <input class="form-control" type="text" value="{{loan.category}}" readonly>
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="form-group">               
+                            <label for="id_email">Email</label>
+                            <input class="form-control" type="text" value="{{loan.email}}" readonly>
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="form-group">               
+                            <label for="id_username">Address</label>
+                            <input class="form-control" type="text" value="{{loan.address}}" readonly>
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_answer">Amount </label>               
+                            <input class="form-control" type="text" value="{{loan.amount|indian_currency}}" readonly>
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="form-group">    
+                            <label for="id_answer">Select Action </label>
+                            <select name="action" id="id_action" class="form-control">
+                                <option value="approve" selected>Approve</option>
+                                <option value="decline">Decline</option>
+                                <option value="disbursed">Disbursed</option>
+                                <option value="waiting">waiting</option>
+                                <option value="completed">Completed</option>
+                            </select>           
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="text-center" style="margin-top:60px">
+                            <button type="submit" class="btn btn-primary">
+                                <span></span><span>submit</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>  
+    </div>
+ </div>
+{% endblock %}

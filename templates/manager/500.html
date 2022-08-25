@@ -1,0 +1,24 @@
+{% extends 'manager/base.html' %}
+{% load static %}
+{% block body %}
+ <section class="fullscreen" data-bg-image="{% static 'manager/assets/images/pages/bw-business-bg.jpg' %}">
+  <div class="container">
+    <div class="container-fullscreen">
+      <div class="row m-t-80">
+        <div class="col-lg-6">
+          <div class="page-error-404">500</div>
+        </div>
+        <div class="col-lg-6">
+          <div class="text-left text-light">
+            <h1 class="text-medium">Ooops, This Page Could Not Be Found!</h1>
+            <div class="text-center">
+                <p class="lead">Internal Server Error</p>
+                <a href="{% url 'dashboard' %}" class="btn btn-light btn-sm">Go to Homepage</a>
+            </div> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

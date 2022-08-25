@@ -1,0 +1,553 @@
+{% load static %}
+{% load humanize %}
+<!DOCType html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="copyright" content="Legit Crew, https://www.devme.com/">
+    <title>{% if obj.site_name %} {{obj.site_name}}  {% else %} {{site_name}} {% endif %} | {{title}}</title>
+    <meta name="author" content="{{designer_name}}">
+    <meta name="theme-color" content="{{obj.theme_color}}">
+    <meta name="msapplication-navbutton-color" content="{{obj.theme_color}}">
+    <meta name="apple-mobile-web-app-status-bar-style" content="{{obj.theme_color}}">
+    <meta property="og:site_name" content="{{obj.site_name}}">
+    <meta property="og:url" content="{{obj.site_url}}">
+    <meta http-equiv="Content-type" content="text/html;charset:utf-8">
+    <meta property="og:type" content="website"> 
+    <meta property="og:type" content="website"> 
+    <meta property="twitter:site" content="https://twitter.com/Kevin36285655">
+    <meta property="twitter:title" content="@Kevin36285655">
+    <meta property="twitter:image" content="https://twitter.com/Kevin36285655/photo">
+    <meta property="twitter:description" content="Life's Simple.">
+    <meta property="twitter:text:title" content="Life's Simple.">
+    <meta property="og:title" content="{{obj.site_name}} | {{title}}">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:description" content="{{obj.description}}">
+    <meta property="og:image" content="{% static 'manager/assets/images/logos/favicon.ico' %}">
+    <meta name="apple-mobile-web-app-title" content="{{obj.site_name}}">
+    <meta name="application-name" content="{{obj.site_name}}">
+    <meta name="msapplication-TileColor" content="{{obj.theme_color}}">
+    <meta name="msapplication-config" content="{% static 'manager/assets/images/logos/browserconfig.xml' %}">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="icon" href="{% static 'manager/assets/images/logos/favicon.ico' %}" type="image/x-icon">
+    <link rel="mask-icon" href="{% static 'manager/assets/images/logos/safari-pinned-tab.svg' %}" color="#666666">
+    <link rel="manifest" href="{% static 'manager/assets/images/logos/site.html' %}">
+    <link rel="stylesheet" href="{% static 'manager/assets/plugins/jquery-datatable/dataTables.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'manager/assets/css/font-awesome.min.css' %}">
+    <link href="//fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/css/animate.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="{% static 'manager/assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'panel/assets/css/custom.css' %}"> 
+    <link href="//fonts.googleapis.com/css?family=Muli:300,300i,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,500,700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'panel/assets/css/vendors.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'panel/assets/css/style.css' %}" />
+    <style>
+        #id_phone_0
+        {
+            width: 30%;
+            float:left;
+        }
+        #id_phone_1
+        {
+            width:68%;
+            float:right;
+        }
+        .top-bar .navbar .navbar-header .logo-desktop 
+        {
+            width: 50px;
+            height: auto;
+            visibility: visible;
+            opacity: 1;
+            position: relative;
+            z-index: 0;
+            transition: all ease-in-out .2s;
+        }
+    </style>
+  </head>
+  <body class="bg-white">
+    <!-- begin app -->
+    <div class="app">
+      <!-- begin app-wrap -->
+      <div class="app-wrap">
+        <!-- begin pre-loader -->
+        <div class="loader">
+          <div class="h-100 d-flex justify-content-center">
+              <div class="align-self-center">
+                  <img src="{% static 'panel/assets/img/loader/loader.svg' %}" alt="{{obj.site_name}} loader">
+              </div>
+          </div>
+      </div>
+      <!-- end pre-loader -->
+      <!-- begin app-header -->
+      <header class="app-header top-bar">
+        <!-- begin navbar -->
+        <nav class="navbar navbar-expand-md">
+
+            <!-- begin navbar-header -->
+            <div class="navbar-header d-flex align-items-center">
+                <a href="javascript:void:(0)" class="mobile-toggle"><i class="ti ti-align-right"></i></a>
+                <a class="navbar-brand" href="{% url 'admin dashboard' %}">
+                    <img width="30" src="{% static 'manager/images/icon/loader.gif' %}" data-src="{% static 'manager/assets/images/logos/favicon.ico' %}" class="img-fluid logo-desktop" alt="{obj.site_name}} logo" /> {{obj.site_name}}
+                    <img width="30" src="{% static 'manager/images/icon/loader.gif' %}" data-src="{% static 'manager/assets/images/logos/favicon.ico' %}" class="img-fluid logo-mobile" alt="{obj.site_name}} logo" />
+                </a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="ti ti-align-left"></i>
+            </button>
+            <!-- end navbar-header -->
+            <!-- begin navigation -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="navigation d-flex">
+                    <ul class="navbar-nav nav-left">
+                        <li class="nav-item">
+                            <a href="javascript:void(0)" class="nav-link sidebar-toggle">
+                                <i class="ti ti-align-right"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item full-screen d-none d-lg-block" id="btnFullscreen">
+                            <a href="javascript:void(0)" class="nav-link expand">
+                                <i class="icon-size-fullscreen"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav nav-right ml-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="ti ti-email"></i>
+                            </a>
+                            <div class="dropdown-menu extended animated fadeIn" aria-labelledby="navbarDropdown">
+                                <ul>
+                                    <li class="dropdown-header bg-gradient p-4 text-white text-left">Messages
+                                        <label class="label label-info label-round">6</label>
+                                        <a href="#" class="float-right btn btn-square btn-inverse-light btn-xs m-0">
+                                            <span class="font-13"> Mark all as read</span></a>
+                                    </li>
+                                    <li class="dropdown-body">
+                                        <ul class="scrollbar scroll_dark max-h-240">
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <div class="notification d-flex flex-row align-items-center">
+                                                        <div class="notify-icon bg-img align-self-center">
+                                                            <img class="img-fluid" src="{% static 'manager/images/icon/loader.gif' %}" data-src="{% static 'panel/assets/img/avtar/03.jpg' %}" alt="user3">
+                                                        </div>
+                                                        <div class="notify-message">
+                                                            <p class="font-weight-bold">Brianing Leyon</p>
+                                                            <small>You will sail along until you...</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <div class="notification d-flex flex-row align-items-center">
+                                                        <div class="notify-icon bg-img align-self-center">
+                                                            <img class="img-fluid" src="{% static 'manager/images/icon/loader.gif' %}" data-src="{% static 'panel/assets/img/avtar/01.jpg' %}" alt="user">
+                                                        </div>
+                                                        <div class="notify-message">
+                                                            <p class="font-weight-bold">Jimmyimg Leyon</p>
+                                                            <small>Okay</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <div class="notification d-flex flex-row align-items-center">
+                                                        <div class="notify-icon bg-img align-self-center">
+                                                            <img class="img-fluid" src="{% static 'manager/images/icon/loader.gif' %}" data-src="{% static 'panel/assets/img/avtar/02.jpg' %}" alt="user2">
+                                                        </div>
+                                                        <div class="notify-message">
+                                                            <p class="font-weight-bold">Brainjon Leyon</p>
+                                                            <small>So, make the decision...</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <div class="notification d-flex flex-row align-items-center">
+                                                        <div class="notify-icon bg-img align-self-center">
+                                                            <img class="img-fluid" src="{% static 'manager/images/icon/loader.gif' %}" data-src="{% static 'panel/assets/img/avtar/04.jpg' %}" alt="user4">
+                                                        </div>
+                                                        <div class="notify-message">
+                                                            <p class="font-weight-bold">Smithmin Leyon</p>
+                                                            <small>Thanks</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <div class="notification d-flex flex-row align-items-center">
+                                                        <div class="notify-icon bg-img align-self-center">
+                                                            <img class="img-fluid" src="{% static 'manager/images/icon/loader.gif' %}" data-src="{% static 'panel/assets/img/avtar/05.jpg' %}" alt="user5">
+                                                        </div>
+                                                        <div class="notify-message">
+                                                            <p class="font-weight-bold">Jennyns Leyon</p>
+                                                            <small>How are you</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <div class="notification d-flex flex-row align-items-center">
+                                                        <div class="notify-icon bg-img align-self-center">
+                                                            <img class="img-fluid" src="{% static 'manager/images/icon/loader.gif' %}" data-src="{% static 'panel/assets/img/avtar/06.jpg' %}" alt="user6">
+                                                        </div>
+                                                        <div class="notify-message">
+                                                            <p class="font-weight-bold">Demian Leyon</p>
+                                                            <small>I like your themes</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-footer">
+                                        <a class="font-13" href="javascript:void(0)"> View All messages </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fe fe-bell"></i>
+                                <span class="notify">
+                                            <span class="blink"></span>
+                                <span class="dot"></span>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu extended animated fadeIn" aria-labelledby="navbarDropdown">
+                                <ul>
+                                    <li class="dropdown-header bg-gradient p-4 text-white text-left">Notifications
+                                        <a href="#" class="float-right btn btn-square btn-inverse-light btn-xs m-0">
+                                            <span class="font-13"> Clear all</span></a>
+                                    </li>
+                                    <li class="dropdown-body min-h-240 nicescroll">
+                                        <ul class="scrollbar scroll_dark max-h-240">
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <div class="notification d-flex flex-row align-items-center">
+                                                        <div class="notify-icon bg-img align-self-center">
+                                                            <div class="bg-type bg-type-md">
+                                                                <span>HY</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="notify-message">
+                                                            <p class="font-weight-bold">New registered user</p>
+                                                            <small>Just now</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <div class="notification d-flex flex-row align-items-center">
+                                                        <div class="notify-icon bg-img align-self-center">
+                                                            <div class="bg-type bg-type-md bg-success">
+                                                                <span>GM</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="notify-message">
+                                                            <p class="font-weight-bold">New invoice received</p>
+                                                            <small>22 min</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <div class="notification d-flex flex-row align-items-center">
+                                                        <div class="notify-icon bg-img align-self-center">
+                                                            <div class="bg-type bg-type-md bg-danger">
+                                                                <span>FR</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="notify-message">
+                                                            <p class="font-weight-bold">Server error report</p>
+                                                            <small>7 min</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <div class="notification d-flex flex-row align-items-center">
+                                                        <div class="notify-icon bg-img align-self-center">
+                                                            <div class="bg-type bg-type-md bg-info">
+                                                                <span>HT</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="notify-message">
+                                                            <p class="font-weight-bold">Database report</p>
+                                                            <small>1 day</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)">
+                                                    <div class="notification d-flex flex-row align-items-center">
+                                                        <div class="notify-icon bg-img align-self-center">
+                                                            <div class="bg-type bg-type-md">
+                                                                <span>DE</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="notify-message">
+                                                            <p class="font-weight-bold">Order confirmation</p>
+                                                            <small>2 day</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown-footer">
+                                        <a class="font-13" href="javascript:void(0)"> View All Notifications
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link search" href="javascript:void(0)">
+                                <i class="ti ti-search"></i>
+                            </a>
+                            <div class="search-wrapper">
+                                <div class="close-btn">
+                                    <i class="ti ti-close"></i>
+                                </div>
+                                <div class="search-content">
+                                    <form>
+                                        <div class="form-group">
+                                            <i class="ti ti-search magnifier"></i>
+                                            <input type="text" class="form-control autocomplete" placeholder="Search Here" id="autocomplete-ajax" autofocus="autofocus">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown user-profile">
+                            <a href="javascript:void(0)" class="nav-link dropdown-toggle " id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="/media{{data.extendedauthuser.profile_pic.url}}" alt="avtar-img">
+                                <span class="bg-success user-status"></span>
+                            </a>
+                            <div class="dropdown-menu animated fadeIn" aria-labelledby="navbarDropdown">
+                                <div class="bg-gradient px-4 py-3">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="mr-1">
+                                            <h4 class="text-white mb-0">{{data.get_full_name}}</h4>
+                                            <small class="text-white">{{data.email}}</small>
+                                        </div>
+                                        <a href="{% url 'logout' %}" class="text-white font-20 tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="" data-original-title="Logout"> <i
+                                                        class="zmdi zmdi-power"></i></a>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <a class="dropdown-item d-flex nav-link" href="{% url 'profile' username=data.username %}">
+                                        <i class="fa fa-user pr-2 text-success"></i> Profile</a>
+                                    <a class="dropdown-item d-flex nav-link" href="{% url 'site settings' %}">
+                                        <i class="ti ti-settings pr-2 text-info"></i> Settings
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- end navigation -->
+        </nav>
+        <!-- end navbar -->
+    </header>
+    <!-- end app-header -->
+
+    <!-- begin app-container -->
+    <div class="app-container">
+        <!-- begin app-nabar -->
+        <aside class="app-navbar">
+            <!-- begin sidebar-nav -->
+            <div class="sidebar-nav scrollbar scroll_light">
+                <ul class="metismenu " id="sidebarNav">
+                    <li class="nav-static-title">Personal</li>
+                    <li class="active">
+                        <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+                            <i class="nav-icon ti ti-rocket"></i>
+                            <span class="nav-title">Home</span>
+                            <span class="nav-label label label-info">2</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li class="active"> <a href="{% url 'admin dashboard' %}">Dashboard</a> </li>
+                            <li> <a href="{% url 'site settings' %}">Site Settings</a> </li>
+                            <li> <a href="{% url 'view cards' %}">View Cards</a> </li>
+                        </ul>
+                    </li>
+                    <li><a href="{% url 'site admins' %}" aria-expanded="false"><i class="nav-icon ti ti-shield"></i><span class="nav-title">Admins</span></a> </li>
+                    <li><a href="{% url 'site employees' %}" aria-expanded="false"><i class="nav-icon fe fe-users"></i><span class="nav-title">Employees</span></a> </li>
+                    <li><a href="{% url 'franchise applications' %}" aria-expanded="false"><i class="nav-icon ti ti-email"></i><span class="nav-title">Loan applications</span></a> </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+                            <i class="nav-icon dripicons dripicons-archive"></i>
+                            <span class="nav-title">Customer Input</span>
+                            <span class="nav-label label label-info">2</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li class="active"> <a href="{% url 'customers queries' %}">Customer Requests</a> </li>
+                            <li> <a href="{% url 'customer suggestions' %}">Suggestions</a> </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+                            <i class="nav-icon dripicons dripicons-archive"></i>
+                            <span class="nav-title">Contacts</span>
+                            <span class="nav-label label label-info">{{message_count|intcomma}}</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li class="active"> <a href="{% url 'customers contacts' %}">View customer contact messages</a> </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-banner p-4 bg-gradient text-center m-3 d-block rounded">
+                        <h3 class="text-white mb-1">{% now "l" %}</h3>
+                        <h4 class="text-white mb-1"><i class="dripicons dripicons-clock"></i>
+                            <script>
+                                var time=new Date(),
+                                output=time.toLocaleString('en-US',{hour:'numeric',minute:'numeric',hour12:true,timeZone:'Asia/Kolkata'});
+                                document.write(output);
+                            </script>
+                        </h4>
+                        <h4 class="text-white mb-1">{% now "jS F Y " %}</h4>
+                        <a class="btn btn-square btn-inverse-success btn-xs d-inline-block mt-2 mb-0" href="{% url 'profile' username=data.username %}"><i class="dripicons dripicons-brush"></i> Edit Profile</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- end sidebar-nav -->
+        </aside>
+        <!-- end app-navbar -->
+        <div class="app-main" id="main">
+            {% block body %}
+            {% endblock %}
+        </div>
+    </div>
+        <!-- begin footer -->
+        <footer class="footer">
+            <div class="row">
+                <div class="col-12 col-sm-6 text-center text-sm-left">
+                    <p>&copy; Copyright {% now 'Y' %}. {{obj.site_name}}.All rights reserved.</p>
+                </div>
+                <div class="col  col-sm-6 ml-sm-auto text-center text-sm-right">
+                    <p><a target="_blank" href="{{designer_link}}" target="_blank">{{designer_name}}</a></p>
+                </div>
+            </div>
+        </footer>
+        <!-- end footer -->
+
+
+        <div class="modal fade small-model bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="mySmallModalLabel">Success</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        user added successfully
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade large-model bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title text-center" id="mySmallModalLabel">Success</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        user added successfully
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- delete Modal -->
+         <div class="modal fade delete-model bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="mySmallModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                   
+                </div>
+            </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static 'manager/js/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'panel/assets/js/vendors.js' %}"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="{% static 'panel/assets/js/app.js' %}"></script> 
+    <script src="{% static 'panel/assets/js/custom.js' %}"></script> 
+    <script type="text/javascript">
+        $(function()
+        {
+
+            var start = moment().subtract(29, 'days'),
+            end = moment();
+
+            function cb(start, end)
+            {
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            }
+
+            $('input[name="datefilter"]').daterangepicker(
+            {
+                autoUpdateInput: false,
+                locale: 
+                {
+                    cancelLabel: 'Clear'
+                },
+                startDate: start,
+                endDate: end,
+                ranges: {
+                   'Today': [moment(), moment()],
+                   'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                   'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                   'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                   'This Month': [moment().startOf('month'), moment().endOf('month')],
+                   'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            }, cb);
+            cb(start, end);
+        
+
+            $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker)
+            {
+                 $(this).val(picker.startDate.format('YYYY-MM-DD') +'to'+ picker.endDate.format('YYYY-MM-DD'));
+            });
+
+            $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker)
+            {
+              $(this).val('');
+            });
+        });
+    </script>
+  </body>
+  </html>
