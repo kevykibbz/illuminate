@@ -181,7 +181,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-BASE_URL=env('BASE_URL')
 
 #login
 LOGIN_URL='/panel/accounts/login'
