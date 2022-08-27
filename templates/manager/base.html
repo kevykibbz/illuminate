@@ -47,6 +47,12 @@
     <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/plugins/slider/css/owl.theme.default.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/css/style.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/css/custom.css' %}" />
+    <style type="text/css">
+        .social-link a
+        {
+            padding:0 12px;
+        }
+    </style>
 </head>
 <body onload="load()">
     <!-- preloader -->
@@ -119,25 +125,25 @@
                         <div id="menu" class="col-lg-9 col-md-12 d-none d-lg-block nav-col">
                             <ul class="navbad">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="index.html">Home
+                                    <a class="nav-link" href="{% url 'dashboard' %}">Home
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">About Us</a>
+                                    <a class="nav-link" href="{% url 'about' %}">About Us</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Services</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Gallery</a>
+                                    <a class="nav-link" href="{% url 'service' %}">Services</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Blog</a>
+                                    <a class="nav-link" href="/gallary">Gallery</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'blog' %}">Blog</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Contact US</a>
+                                    <a class="nav-link" href="{% url 'contact' %}">Contact US</a>
                                 </li>
                             </ul>
                         </div>
@@ -153,19 +159,16 @@
                 <div class="row">
                     <div class="col-md-4 col-sm-12">
                         <h2>About Us</h2>
-                        <p>
-                            Smart Eye is a leading provider of information technology, consulting, and business process services. Our dedicated employees offer strategic insights, technological expertise and industry experience.
-                        </p>
-                        <p>We focus on technologies that promise to reduce costs, streamline processes and speed time-to-market, Backed by our strong quality processes and rich experience managing global... </p>
+                        {{obj.description}}
                     </div>
                     <div class="col-md-4 col-sm-12">
                         <h2>Useful Links</h2>
                         <ul class="list-unstyled link-list">
-                            <li><a ui-sref="about" href="#/about">About us</a><i class="fa fa-angle-right"></i></li>
+                            <li><a ui-sref="about" href="/about">About us</a><i class="fa fa-angle-right"></i></li>
                             <li><a ui-sref="portfolio" href="#/portfolio">Portfolio</a><i class="fa fa-angle-right"></i></li>
                             <li><a ui-sref="products" href="#/products">Latest jobs</a><i class="fa fa-angle-right"></i></li>
-                            <li><a ui-sref="gallery" href="#/gallery">Gallery</a><i class="fa fa-angle-right"></i></li>
-                            <li><a ui-sref="contact" href="#/contact">Contact us</a><i class="fa fa-angle-right"></i></li>
+                            <li><a ui-sref="gallery" href="/gallery">Gallery</a><i class="fa fa-angle-right"></i></li>
+                            <li><a ui-sref="contact" href="{% url 'contact' %}">Contact us</a><i class="fa fa-angle-right"></i></li>
                         </ul>
                     </div>
                     <div class="col-md-4 col-sm-12 map-img">
@@ -181,30 +184,39 @@
                     </div>
                 </div>
                 <div class="nav-box row clearfix">
-                    <div class="inner col-md-9 clearfix">
+                    <div class="inner col-md-9 clearfix col-12 text-md-right text-center">
                         <ul class="footer-nav clearfix">
                             <li><a href="#">Home</a></li>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Gallery</a></li>
-                            <li><a href="#">Servies</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a href="{% url 'about' %}">About</a></li>
+                            <li><a href="/gallary">Gallery</a></li>
+                            <li><a href="{% url 'service' %}">Servies</a></li>
+                            <li><a href="{% url 'blog' %}">Blog</a></li>
+                            <li><a href="{% url 'contact' %}">Contact</a></li>
+                            <li class="d-md-none d-block" style="margin-top:-13px !important">
+                                <div class="donate-link"><a href="donate.html" class="btn btn-primary "><span class="btn-title">Donate Now</span></a></div>
+                            </li>
                         </ul>
                     </div>
-                    <div class="donate-link col-md-3"><a href="donate.html" class="btn btn-primary "><span class="btn-title">Donate Now</span></a></div>
+                    <div class="donate-link col-md-3 d-md-block d-none"><a href="donate.html" class="btn btn-primary "><span class="btn-title">Donate Now</span></a></div>
                 </div>   
             </div>
         </footer>
         <div class="copy">
             <div class="container">
-                <a target="_blank" href="{{designer_link}}">{% now 'Y' %} &copy; All Rights Reserved | Designed and Developed by {{designer_name}}</a>
-                <span>
-                    <a target="_blank" href="{{obj.github}}"><i class="fab fa-github"></i></a>
-                    <a target="_blank" href="{{obj.instagram}}"><i class="fab fa-instagram"></i></a>
-                    <a target="_blank" href="{{obj.whatsapp}}"><i class="fab fa-whatsapp"></i></a>
-                    <a target="_blank" href="{{obj.twitter}}"><i class="fab fa-twitter"></i></a>
-                    <a target="_blank" href="{{obj.facebook}}"><i class="fab fa-facebook-f"></i></a>
-                </span>
+                <div class="row">
+                    <div class="col-md-6 col-12 text-md-left text-center">
+                        <a target="_blank" href="{{designer_link}}">{% now 'Y' %} &copy; All Rights Reserved | Designed and Developed by {{designer_name}}</a>
+                    </div>
+                    <div class="col-md-6 col-12 text-md-right text-center">
+                    <center class="social-link mt-md-0 mt-3">
+                        <a target="_blank" href="{{obj.github}}"><i class="fab fa-github"></i></a>
+                        <a target="_blank" href="{{obj.instagram}}"><i class="fab fa-instagram"></i></a>
+                        <a target="_blank" href="{{obj.whatsapp}}"><i class="fab fa-whatsapp"></i></a>
+                        <a target="_blank" href="{{obj.twitter}}"><i class="fab fa-twitter"></i></a>
+                        <a target="_blank" href="{{obj.facebook}}"><i class="fab fa-facebook-f"></i></a>
+                    </center>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- Small Modal -->

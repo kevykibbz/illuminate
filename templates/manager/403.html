@@ -4,17 +4,22 @@
  <section class="fullscreen" data-bg-image="{% static 'manager/assets/images/pages/bw-business-bg.jpg' %}">
   <div class="container">
     <div class="container-fullscreen">
-      <div class="row m-t-80">
-        <div class="col-lg-6">
-          <div class="page-error-404">403</div>
+      <div class="row m-t-80" style="margin-top:50px">
+        <div class="col-lg-6 mt-4 col-12 text-md-left text-center">
+          <h2 class="page-error-404">Error code:403</h2>
         </div>
-        <div class="col-lg-6">
-          <div class="text-left text-light">
-            <h1 class="text-medium">Ooops, This Page Could Not Be Found!</h1>
+        <div class="d-md-none d-block">
+          <hr>
+        </div>  
+        <div class="col-lg-6 col-12 text-md-right text-center">
+          <div class="text-left mb-3">
+            <h1 class="text-medium">Access Forbidden!</h1>
             <div class="text-center">
-                <p class="lead">Access Forbidden</p>
-                <a href="{% url 'dashboard' %}" class="btn btn-light btn-sm">Go to Homepage</a>
-            </div>          
+                <p class="lead">This is a restricted area.Authorized personnel only.<br>
+                  <br>
+                  <a href="{% url 'dashboard' %}" class="btn btn-primary "><span class="btn-title">Homepage</span></a>
+                </p>
+            </div>
           </div>
         </div>
       </div>
