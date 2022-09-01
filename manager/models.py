@@ -68,16 +68,10 @@ def bgcolor():
 
 
 
-user_roles=[
-            ('Tertiary','View only'),
-            ('Secondary','View | Edit'),
-            ('Admin','View | Edit  | Admin'),
+options=[
+            ('employee','Employee'),
+            ('admins','Admin'),
         ]
-
-
-
-
-
 class ExtendedAuthUser(models.Model):
     user=models.OneToOneField(User,primary_key=True,on_delete=models.CASCADE)
     phone=PhoneNumberField(null=True,blank=True,verbose_name='phone',unique=True,max_length=13)
@@ -85,7 +79,8 @@ class ExtendedAuthUser(models.Model):
     bgcolor=models.CharField(max_length=10,blank=True,null=True,default=bgcolor)
     company=models.CharField(max_length=100,null=True,blank=True,default=env('SITE_NAME'))
     profile_pic=models.ImageField(upload_to='profiles/',null=True,blank=True,default="placeholder.jpg")
-    role=models.CharField(choices=user_roles,max_length=200,null=True,blank=True)
+    role=models.CharField(choices=options,max_length=200,null=True,blank=True)
+    bio=models.TextField(null=True,blank=True)
     created_on=models.DateTimeField(default=now)
     class Meta:
         db_table='extended_auth_user'

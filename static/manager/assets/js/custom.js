@@ -68,30 +68,6 @@ $(document).on('submit','.ContactForm',function()
             $('.small-model').modal({show:true});
             $('.small-model').find('.modal-title').text('Success');
             $('.small-model').find('.modal-body').html('<div class="text-success text-center"><i class="fa fa-check-circle"></i> '+callback.message+'</div>');
-            if(callback.email)
-            {
-              window.location='/'+callback.email;
-            }
-            if(callback.loanid)
-            {
-              window.location='/apply/'+callback.loanid;
-            }
-            if(callback.eligible)
-            {
-              window.location='/check/eligibility/'+callback.loanid;
-            }
-            if(callback.step2)
-            {
-              window.location='/check/eligibility/step2/'+callback.loanid;
-            }
-            if(callback.step3)
-            {
-              window.location='/finish/'+callback.loanid;
-            }
-            if(callback.step4)
-            {
-              window.location='/check/eligibility/step4/'+callback.loanid;
-            }
         }
         else
         {
@@ -132,33 +108,333 @@ $(document).on('click','.reveal',function()
         el.removeClass('fa-eye').addClass('fa-eye-slash');
     }
 });
-$(function()
+
+$(document).on('submit','.loginForm',function()
 {
-  $('#submitForm1').on('submit', function(e)
+  var el=$(this),
+  btn_text=el.find('button').text(),
+  urlparams=new URLSearchParams(window.location.search),
+  next=urlparams.get('next'),
+  form_data=new FormData(this);
+  el.children().find('.is-invalid').removeClass('is-invalid');
+  el.parents('.card').find('.load-overlay .loader-container').html(`<div class="loader"><svg class="circular" viewBox="25 25 50 50"><circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div>`);
+  $.ajax(
   {
-      $('#form-submit1').attr('disabled', true);
-      $('#form-submit1').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> PROCESS...');
+    url:el.attr('action'),
+    method:el.attr('method'),
+    dataType:'json',
+    data:form_data,
+    contentType:false,
+    cache:false,
+    processData:false,
+    beforeSend:function()
+    {
+      $(document).find('.feedback').html('');
+      el.find('button').html('<i class="spinner-border spinner-border-sm" role="status"></i> Please wait...').attr('disabled',true);
+      el.parents('.card').find('.load-overlay').show();
+      el.parents('.card').find('.overlay-close').removeClass('btn-remove');
+    },
+    success:function(callback)
+    {
+      el.find('button').html(btn_text).attr('disabled',false);
+      el.parents('.card').find('.overlay-close').addClass('btn-remove');
+      el.parents('.card').find('.load-overlay').hide();
+      console.log(callback);
+      if(!callback.valid)
+      {
+        $.each(callback.form_errors,function(prefix,value)
+        {
+          el.find("input[name='"+prefix+"'],textarea[name='"+prefix+"'],select[name='"+prefix+"']").addClass('is-invalid').parents('.form-group').find('.feedback').addClass('invalid-feedback').html('<i class="fa fa-exclamation-circle"></i> '+value[0]);
+        });
+      }
+      else
+      {
+        if(next)
+        {
+            window.location=next;
+        }
+        else
+        {
+            window.location='/panel';
+        }
+      }
+    },
+    error:function(err)
+    {
+      el.find('button').html(btn_text).attr('disabled',false);
+      el.parents('.card').find('.load-overlay .loader-container').html('<span class="text-danger font-weight-bold"> <i class="fa fa-alert-triangle"></i> '+err.status+' :'+err.statusText+'</span>.');
+    }
   });
+  return false;
 });
 
-$(".animated-progress span").each(function ()
+
+$(document).on('change','.profile',function()
 {
-$(this).animate(
-  {
-        width: $(this).attr("data-progress") + "%",
-  },
-  1000
-    );
-        $(this).text($(this).attr("data-progress") + "%");
+    var el=$(this),
+    file=el.get(0).files[0],
+    ext=el.val().substring(el.val().lastIndexOf('.')+1).toLowerCase();
+    if(file && (ext=='jpg' || ext=='png' || ext=='jpeg' || ext=='gif'))
+    {
+        var reader=new FileReader();
+        reader.onload=function(e)
+        {
+          $('.imagecard').find('img').attr('src',reader.result);
+          $('.uploader').show();
+          $('.selector').hide();
+        }
+        reader.readAsDataURL(file);
+    }
+    else
+    {
+      $('.small-model').modal({show:true});
+      $('.small-model').find('.modal-title').text('Warning');
+      $('.small-model').find('.modal-body').html('<div class="text-warning text-center"><i class="fa fa-alert-triangle"></i> Invalid image format</div>');
+    }
 });
+
+$(document).on('keyup','.fname',function()
+{
+  $('.ffname').text($(this).val());
+});
+$(document).on('keyup','.lname',function()
+{
+  $('.llname').text($(this).val());
+});
+
+
+$(document).on('submit','.ActiveForm',function()
+{
+  var el=$(this),
+  btn_text=el.find('button:last').text(),
+  form_data=new FormData(this);
+  $('.feedback').html('');
+  el.children().find('.is-invalid').removeClass('is-invalid');
+  el.parents('.card , .editor').find('.load-overlay .loader-container').html(`<div class="loader"><svg class="circular" viewBox="25 25 50 50"><circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div>`);
+  $.ajax(
+    {
+      url:el.attr('action'),
+      method:el.attr('method'),
+      dataType:'json',
+      data:form_data,
+      contentType:false,
+      cache:false,
+      processData:false,
+      beforeSend:function()
+      {
+        el.parents('.card,.editor').find('.load-overlay').show();
+        el.find('button:last').attr('disabled',true).html('<i class="spinner-border spinner-border-sm" role="status"></i> Please wait...');
+        el.parents('.card , .editor').find('.overlay-close').removeClass('btn-remove');
+      },
+      success:function(callback)
+      {
+        el.parents('.card,.editor').find('.overlay-close').addClass('btn-remove');
+        el.parents('.card,.editor').find('.load-overlay').hide();
+        el.find('button:last').html(btn_text).attr('disabled',false);
+        if(callback.valid)
+        {
+            el[0].reset();
+            $('.small-model').modal({show:true});
+            $('.small-model').find('.modal-title').text('Success');
+            $('.small-model').find('.modal-body').html('<div class="text-success text-center"><i class="fa fa-check-circle"></i> '+callback.message+'</div>');
+            $('.uploader').hide();
+            $('.selector').show();
+          }
+        else
+        {
+            $.each(callback.uform_errors,function(key,value)
+            {
+              el.find("input[aria-label='"+key+"']").addClass('is-invalid').parents('.form-group').find('.feedback').addClass('invalid-feedback').html('<i class="fa fa-exclamation-circle"></i> '+value);
+            }); 
+            $.each(callback.eform_errors,function(key,value)
+            {
+              el.find("input[aria-label='"+key+"']").addClass('is-invalid').parents('.form-group').find('.feedback').addClass('invalid-feedback').html('<i class="fa fa-exclamation-circle"></i> '+value);
+            });
+        }
+      },
+      error:function(err)
+      {
+        el.parents('.card,.editor').find('.overlay-close').addClass('btn-remove');
+        el.find('button').html(btn_text).attr('disabled',false);
+        el.parents('.card,.editor').find('.load-overlay .loader-container').html('<span class="text-danger font-weight-bold"> <i class="fa fa-alert-triangle"></i> '+err.status+' :'+err.statusText+'</span>.');
+      }
+    });
+  return false;
+});
+
+$(document).on('click','.del-data',function(e)
+{
+  e.preventDefault();
+  var el=$(this);
+  $('.delete-model').modal({show:true});
+  $('.delete-model').find('.modal-title').text('Confirm');
+  $('.delete-model').find('.modal-body').html('<div class="text-warning text-info text-center"><i class="fa fa-alert-triangle"></i> Confirm deleting item .</div> <div class="text-center"><button class="btn btn-secondary cancelBtn" >cancel</button><button data-host="'+el.data('host')+'" data-url="'+el.attr('href')+'" class="btn btn-danger confirmBtn">confirm</button></div>');
+});
+
+$(document).on('click','.cancelBtn',function()
+{
+  $(this).parents('.modal').find('.close').click();
+});
+
+$(document).on('click','.confirmBtn',function()
+{
+  var el=$(this),
+  url=el.data('url');
+  $.ajax(
+      {
+        url:url,
+        dataType:'json',
+        beforeSend:function()
+        {
+          el.html('<i class="spinner-border spinner-border-sm" role="status"></i> Please wait...');
+        },
+        success:function(callback)
+        {
+          el.html('confirm');
+          refreshPage(el,el.data('host'),'table-results');
+          $('.delete-model').modal('hide');
+          if(callback.valid)
+          {
+            $('.small-model').modal('show');
+            $('.small-model').find('.modal-title').text('Success');
+            $('.small-model').find('.modal-body').html('<div class="text-success text-center"><i class="fa fa-check-circle"></i> '+callback.message+'.</div>');
+          }
+          else
+          {
+            $('.small-model').modal('show');
+            $('.small-model').find('.modal-title').text('Warning');
+            $('.small-model').find('.modal-body').html('<div class="text-warning text-center"><i class="fa fa-exclmation-circle"></i> '+callback.message+'</div>');
+          }
+        },
+        error(err)
+        {
+          el.html('confirm');
+          console.log(err.status+':'+err.statusText);
+        }
+      });
+});
+
+/*refreshPage*/
+function refreshPage(wrapper,url, target)
+{
+    $.ajax(
+    {
+      url:url,
+      context:this,
+      dataType:'html',
+      success:function(callback)
+      {
+        $(document).find('.'+target).html($(callback).find('.'+target).html());
+        observerImages();
+      },
+      error:function(err)
+      {
+        console.log(err.status+':'+err.statusText);
+      }
+    });
+}
+
 $(document).ready(function()
 {
-    $(document).on('change','.tenature',function()
+    (function($) 
     {
-        $(this).each(function(key,value)
+        "use strict"
+        $(document).on('click','.fixedHeader',function()
         {
-            var data=$(this).data('value');
-            $('.emi').val(data);
+          $('.h1').click();
+          localStorage.fixedHeader=$('.h1').is(':checked');
+          if(localStorage.getItem("fixedHeader") == 'true')
+          {
+            new quixSettings({
+                headerPosition: "fixed"
+            });
+          }
         });
-    });
+
+        if(localStorage.getItem("fixedHeader") == 'true')
+        {
+          new quixSettings({
+              sidebarPosition: "fixed"
+          });
+        }
+
+        $(document).on('click','.fixedSideBar',function()
+        {
+          $('.h2').click();
+          localStorage.fixedSideBar=$('.h2').is(':checked');
+          if(localStorage.getItem("fixedSideBar") == 'true')
+          {
+            new quixSettings({
+                sidebarPosition: "fixed"
+            });
+          }
+        }); 
+        if(localStorage.getItem("fixedSideBar") == 'true')
+        {
+          new quixSettings({
+              sidebarPosition: "fixed"
+          });
+        }
+
+        $(document).on('click','.rtller',function()
+        {
+          $('.h3').click();
+          localStorage.rtller=$('.h3').is(':checked');
+          if(localStorage.getItem("rtller") == 'true')
+          {
+            new quixSettings({
+                sidebarPosition: "rtl"
+            });
+          }
+        }); 
+
+        if(localStorage.getItem("rtller") == 'true')
+        {
+          new quixSettings({
+              sidebarPosition: "rtl"
+          });
+        }
+
+        $(document).on('click','.dark',function()
+        {
+          $('.h4').click();
+          localStorage.dark=$('.h4').is(':checked');
+          if(localStorage.getItem("dark") == 'true')
+          {
+            localStorage.light=false;
+            new quixSettings({
+                version: "dark"
+            });
+          }
+        });
+
+        if(localStorage.getItem("dark") == 'true')
+        {
+          localStorage.light=false;
+          new quixSettings({
+              version: "dark"
+          });
+        }
+        $(document).on('click','.light',function()
+        {
+          $('.h5').click();
+          localStorage.light=$('.h5').is(':checked');
+          if(localStorage.getItem("light") == 'true')
+          {
+            localStorage.dark=false;
+            new quixSettings({
+                version: "light"
+            });
+          }
+        });
+        if(localStorage.getItem("light") == 'true')
+        {
+          localStorage.dark=false;
+          new quixSettings({
+              version: "light"
+          });
+        }
+        
+    
+    })(jQuery);
 });

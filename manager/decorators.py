@@ -4,7 +4,7 @@ from installation.models import SiteConstants
 def unauthenticated_user(view_func):
     def wrapper_func(request, *args , **kwrags):
         if request.user.is_authenticated and request.user.is_staff:
-            return redirect('/dashboard/')
+            return redirect('/panel')
         else:
             return view_func(request, *args , **kwrags)
     return wrapper_func
