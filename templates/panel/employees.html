@@ -26,7 +26,7 @@
         <div class="col-md-10 col-12 mx-auto">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">View site employees</h4>
+                    <h4 class="card-title">View site employees ({{acount|intcomma}}</h4>
                     <div class="table-responsive table-results">
                         <table class="table table-responsive-sm table-stripped table-hover">
                             <thead>
@@ -58,7 +58,7 @@
                                       <td><span class="badge badge-secondary input-rounded">Inactive</span>
                                     {% endif %}
                                     </td>
-                                    <td>{{employee.created_at}}</td>
+                                    <td>{{employee.date_joined}}</td>
                                     <td>
                                         <a href="{% url 'edit employee' id=employee.id %}" class="btn btn-success input-rounded"><i class="fa fa-edit"></i> Edit</a>
                                         <a data-host="{% url 'employees' %}" href="{% url 'delete employee' id=employee.id %}" data-toggle="tooltip" title="Delete {{employee.get_full_name}}" class="del-data btn btn-danger input-rounded" type="button"><i class="fa fa-trash"></i> Delete</a>

@@ -1,0 +1,314 @@
+{% extends 'panel/main.html' %}
+{% load static %}
+{% block body %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="breadcrumb-range-picker">
+            <span><i class="icon-calender"></i></span>
+            <span class="ml-1">{% now 'l' %}, {% now 'd m Y' %}</span>
+        </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/panel">Home</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Home Page</a></li>
+        </ol>
+    </div>
+</div>
+<!-- row -->
+<div class="container-fluid">
+   	<div class="row">
+   		<div class="col-12">
+   			<div class="doctor-message">
+		        <div class="inner-lay">
+		            <div class="container" style="padding:70px 10px">
+		               <div class="row session-title">
+			               	<div class="position-relative border-edit">
+								<h2 class="p-3 content text-capitalize" data-name="archieve_head">{{home.archieve_head|default:'Our Achievemtns in Numbers'}}</h2>
+								<i class="penwrapper fa fa-pen"></i>
+							</div>
+							<br>
+							<br>
+							<div class="mt-3 position-relative border-edit">
+								<i class="penwrapper fa fa-pen"></i>
+			                   <p class="content" data-name="archieve_text" style="color:#fff  !important;">
+			                   	{% if home.archieve_text %}
+			                   	{{home.archieve_text}}
+			                   	{% else %}
+			                   	We can talk for a long time about advantages of our Dental clinic before other medical treatment facilities.
+			                   But you can read the following facts in order to make sure of all pluses of our clinic {% endif %}</p>
+			               </div>
+			            </div>
+		                <div class="row">
+		                    <div class="col-sm-3 numb">
+		                    	<div class="mt-3 position-relative border-edit">
+		                    		<i class="penwrapper fa fa-pen"></i>
+		                        	<h3 class="content" data-name="no_year_of_expe">{{home.no_year_of_expe|default:'12+'}}</h3>
+		                        </div>
+		                        <div class="mt-3 position-relative border-edit">
+		                        	<i class="penwrapper fa fa-pen"></i>
+		                        	<span class="content text-transform-upper" data-name="text_year_of_expe"  style="color:#fff  !important; text-transform:uppercase;">{{home.text_year_of_expe|default:'YEARS OF EXPEREANCE'}}</span>
+		                        </div>
+		                    </div>
+		                    <div class="col-sm-3 numb">
+		                    	<div class="mt-3 position-relative border-edit">
+		                    		<i class="penwrapper fa fa-pen"></i>
+		                        	<h3 class="content" data-name="no_happy_children">{{home.no_happy_children|default:'1812+'}}</h3>
+		                        </div>
+		                        <div class="mt-3 position-relative border-edit">
+		                    		<i class="penwrapper fa fa-pen"></i>
+		                        	<span class="content text-transform-upper" data-name="text_happy_children" style="color:#fff  !important; text-transform:uppercase;">{{home.text_happy_children|default:'HAPPY CHILDRENS'}}</span>
+		                        </div>
+		                    </div>
+		                    <div class="col-sm-3 numb">
+		                    	<div class="mt-3 position-relative border-edit">
+		                        	<i class="penwrapper fa fa-pen"></i>
+		                        	<h3 class="content" data-name="no_event">{{home.no_event|default:'52+'}}</h3>
+		                        </div>
+		                        <div class="mt-3 position-relative border-edit">
+		                        	<i class="penwrapper fa fa-pen"></i>
+		                        	<span class="content text-transform-upper" data-name="text_event" style="color:#fff  !important; text-transform:uppercase;">{{home.text_event|default:'EVENTS'}}</span>
+		                        </div>
+		                    </div>
+		                    <div class="col-sm-3 numb">
+		                    	<div class="mt-3 position-relative border-edit">
+		                        	<i class="penwrapper fa fa-pen"></i>
+		                        	<h3 class="content" data-name="no_fund_raised">{{home.no_fund_raised|default:'48'}}</h3>
+		                        </div>
+		                        <div class="mt-3 position-relative border-edit">
+		                        	<i class="penwrapper fa fa-pen"></i>
+		                        	<span class="content text-transform-upper" data-name="text_fund_raised" style="color:#fff !important; text-transform:uppercase;">{{home.text_fund_raised|default:'FUNT RAISED'}}</span>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+    		</div>
+   		</div>
+   	</div>
+
+   <section class="our-team team-11" style="margin-top:30px;">
+        <div class="container">
+            <div class="session-title row">
+                    <h2>Meet our Team</h2>
+                    <div class="m-3 p-2 position-relative border-edit">
+		                <i class="penwrapper fa fa-pen"></i>
+                    	<p class="content" data-name="team_head">
+	                    	{% if home.team_head %}
+	                    	{{home.team_head}}
+	                    	{% else %}
+	                    	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla vel nisl a dictum. Donec ut est arcu. Donec hendrerit velit
+	                    	{% endif %}
+	                    </p>
+                    </div>
+            </div>
+            <div class="row team-row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-usr">
+                    	<div class="mt-3 mb-3 p-2 position-relative border-edit">
+		                	<i class="penwrapper fa fa-pen"></i>
+		                	{% if home.team1_image %}
+                        	<img class="img-responsive" data-name="team1_image" class="img-responsive" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{{home.team1_image.url}}" alt="{{home.team1_name}}">
+                        	{% else %}
+                        	<img class="img-responsive" data-name="team1_image" class="img-responsive" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'manager/assets/images/team/team-memb1.jpg' %}" alt="">
+                        	{% endif %}
+                        </div>
+                        <div class="det-o">
+                        	<div class="mt-3 mb-3 p-2 position-relative border-edit">
+		                		<i class="penwrapper fa fa-pen"></i>
+                            	<h4 class="content text-capitalize" data-name="team1_name">{{home.team1_name|default:'David Kanuel'}}</h4>
+                            </div>
+                            <div class="mt-3 mb-3 p-2 position-relative border-edit">
+		                		<i class="penwrapper fa fa-pen"></i>
+                            	<i class="content text-capitalize" data-name="team1_title">{{home.team1_title|default:'CEO'}} </i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-usr">
+                    	<div class="mt-3 mb-3 p-2 position-relative border-edit">
+		                	<i class="penwrapper fa fa-pen"></i>
+		                	{% if home.team2_image %}
+                        	<img class="img-responsive" data-name="team2_image" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{{home.team2_image.url}}" alt="{{home.team2_name}}">
+                        	{% else %}
+                        	<img class="img-responsive" data-name="team2_image" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'manager/assets/images/team/team-memb2.jpg' %}" alt="">
+                        	{% endif %}
+                        </div>
+                        <div class="det-o">
+                        	<div class="mt-3 mb-3 p-2 position-relative border-edit">
+			                	<i class="penwrapper fa fa-pen"></i>
+	                            <h4 class="content text-capitalize" data-name="team2_name">{{home.team2_name|default:'David Kanuel'}}</h4>
+	                        </div>
+	                        <div class="mt-3 mb-3 p-2 position-relative border-edit">
+			                	<i class="penwrapper fa fa-pen"></i>
+	                            <i class="content text-capitalize" data-name="team2_title">{{home.team2_title|default:'CFO'}}</i>
+	                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-usr">
+                    	<div class="mt-3 mb-3 p-2 position-relative border-edit">
+		                	<i class="penwrapper fa fa-pen"></i>
+		                	{% if home.team3_image %}
+                        	<img class="img-responsive" data-name="team3_image" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{{home.team3_image.url}}" alt="{{home.team3_name}}">
+                        	{% else %}
+                        	<img class="img-responsive" data-name="team3_image" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'manager/assets/images/team/team-memb3.jpg' %}" alt="">
+                        	{% endif %}
+                        </div>
+                        <div class="det-o">
+                        	<div class="mt-3 mb-3 p-2 position-relative border-edit">
+			                	<i class="penwrapper fa fa-pen"></i>
+	                            <h4 class="content text-capitalize" data-name="team3_name">{{home.team3_name|default:'David Kanuel'}}</h4>
+	                        </div>
+	                        <div class="mt-3 mb-3 p-2 position-relative border-edit">
+			                	<i class="penwrapper fa fa-pen"></i>
+	                            <i class="content text-capitalize" data-name="team3_title">{{home.team3_title|default:'Team Leader'}}</i>
+	                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-usr">
+                    	<div class="mt-3 mb-3 p-2 position-relative border-edit">
+		                	<i class="penwrapper fa fa-pen"></i>
+		                	{% if home.team4_image %}
+	                        <img class="img-responsive" data-name="team4_image" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{{home.team4_image.url}}" alt="{{home.team4_name}}">
+	                        {% else %}
+	                        <img class="img-responsive" data-name="team4_image" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'manager/assets/images/team/team-memb4.jpg'%}" alt="">
+	                        {% endif %}
+	                    </div>
+                        <div class="det-o">
+                        	<div class="mt-3 mb-3 p-2 position-relative border-edit">
+			                	<i class="penwrapper fa fa-pen"></i>
+	                            <h4 class="content text-capitalize" data-name="team4_name">{{home.team4_name|default:'David Kanuel'}}</h4>
+	                        </div>
+	                        <div class="mt-3 mb-3 p-2 position-relative border-edit">
+			                	<i class="penwrapper fa fa-pen"></i>
+	                            <i class="content text-capitalize" data-name="team4_title">{{home.team3_title|default:'Project Manager'}}</i>
+	                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="row" style="display:none">
+    	<div class="col-md-6 col-12 mx-auto">
+			<div class="form-area">
+				<form action="" novalidate method="post" class="ActiveForm">
+			        {% csrf_token %}
+			        <div class="form-group">
+			        	{{form.service_head}}
+			           <div class="feedback"></div>
+			        </div> 
+			        <div class="form-group">
+			        	{{form.service_text}}
+			           <div class="feedback"></div>
+			        </div>
+			        <div class="form-group">
+			        	{{form.archieve_head}}
+			           <div class="feedback"></div>
+			        </div>
+			        <div class="form-group">
+			        	{{form.archieve_text}}
+			           <div class="feedback"></div>
+			        </div>
+			        <div class="form-group">
+			        	{{form.archieve_bg}}
+			           <div class="feedback"></div>
+			        </div>
+			        <div class="form-group">
+			        	{{form.no_year_of_expe}}
+			           <div class="feedback"></div>
+			        </div>
+			        <div class="form-group">
+			        	{{form.text_year_of_expe}}
+			           <div class="feedback"></div>
+			        </div>
+			        <div class="form-group">
+			        	{{form.no_happy_children}}
+			           <div class="feedback"></div>
+			        </div> 
+			        <div class="form-group">
+			        	{{form.text_happy_children}}
+			           <div class="feedback"></div>
+			        </div> 
+			        <div class="form-group">
+			        	{{form.no_event}}
+			           <div class="feedback"></div>
+			        </div> 
+			        <div class="form-group">
+			        	{{form.text_event}}
+			           <div class="feedback"></div>
+			        </div> 
+			        <div class="form-group">
+			        	{{form.no_fund_raised}}
+			           <div class="feedback"></div>
+			        </div> 
+			        <div class="form-group">
+			        	{{form.text_fund_raised}}
+			           <div class="feedback"></div>
+			        </div> 
+			        <div class="form-group">
+			        	{{form.team1_name}}
+			           <div class="feedback"></div>
+			        </div> 
+			        <div class="form-group">
+			        	{{form.team_head}}
+			           <div class="feedback"></div>
+			        </div>   
+			        <div class="form-group">
+			        	{{form.team1_title}}
+			           <div class="feedback"></div>
+			        </div> 
+			        <div class="form-group">
+			        	{{form.team1_image}}
+			           <div class="feedback"></div>
+			        </div> 
+			        <div class="form-group">
+			        	{{form.team2_name}}
+			           <div class="feedback"></div>
+			        </div> 
+			        <div class="form-group">
+			        	{{form.team2_title}}
+			           <div class="feedback"></div>
+			        </div> 
+			        <div class="form-group">
+			        	{{form.team2_image}}
+			           <div class="feedback"></div>
+			        </div> 
+			        <div class="form-group">
+			        	{{form.team3_name}}
+			           <div class="feedback"></div>
+			        </div> 
+			        <div class="form-group">
+			        	{{form.team3_title}}
+			           <div class="feedback"></div>
+			        </div> 
+			        <div class="form-group">
+			        	{{form.team3_image}}
+			           <div class="feedback"></div>
+			        </div> 
+			        <div class="form-group">
+			        	{{form.team4_name}}
+			           <div class="feedback"></div>
+			        </div> 
+			        <div class="form-group">
+			        	{{form.team4_title}}
+			           <div class="feedback"></div>
+			        </div> 
+			        <div class="form-group">
+			        	{{form.team4_image}}
+			           <div class="feedback"></div>
+			        </div>
+			        <div class="text-center">
+			            <button class="btn btn-primary input-rounded">Submit</button>
+			        </div>
+			   </form>
+			</div>
+    	</div>
+    </div>
+</div>
+{% endblock %}

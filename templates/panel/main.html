@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,69 +29,59 @@
     <meta property="og:title" content="{{obj.site_name}} | {{title}}">
     <meta property="og:locale" content="en_US">
     <meta property="og:description" content="{{obj.description}}">
-    <meta property="og:image" content="{% static 'manager/assets/images/logos/favicon.ico' %}">
+    <meta property="og:image" content="{{obj.favicon.url}}">
     <meta name="apple-mobile-web-app-title" content="{{obj.site_name}}">
     <meta name="application-name" content="{{obj.site_name}}">
     <meta name="msapplication-TileColor" content="{{obj.theme_color}}">
     <meta name="msapplication-config" content="{% static 'manager/assets/images/logos/browserconfig.xml' %}">
     <meta name="theme-color" content="#ffffff">
     <link rel="canonical" href="{{request.get_full_path}}" />
+    <link rel="shortcut icon" href="{{obj.favicon.url}}" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'panel/assets/plugins/owl.carousel/dist/css/owl.carousel.min.css' %}">
     <link href="{% static 'panel/assets/plugins/fullcalendar/css/fullcalendar.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'panel/assets/plugins/chartist/css/chartist.min.css' %}">
     <link href="{% static 'panel/assets/css/style.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'panel/assets/plugins/jsgrid/css/jsgrid.min.css' %}">
+    <link rel="stylesheet" href="{% static 'panel/assets/plugins/dropify/dist/css/dropify.min.css' %}">
+    <link rel="stylesheet" href="{% static 'panel/assets/plugins/select2/css/select2.min.css' %}">
     <link rel="stylesheet" href="{% static 'panel/assets/plugins/jsgrid/css/jsgrid-theme.min.css' %}">
     <link rel="stylesheet" href="{% static 'panel/assets/plugins/footable/css/footable.bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'panel/assets/plugins/jquery-bootgrid/dist/jquery.bootgrid.min.css' %}">
     <link href="{% static 'panel/assets/plugins/datatables/css/jquery.dataTables.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'panel/assets/css/font-awesome.min.css' %}">
+    <link href="{% static 'panel/assets/plugins/summernote/summernote.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'panel/assets/plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css' %}">
+    <link href="{% static 'panel/assets/plugins/jquery-asColorPicker/css/asColorPicker.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/css/custom.css' %}" />
     <style type="text/css">
-        .float-btn
-        {
-            position:fixed;
-            bottom:40px;
-            right:20px;
-            width:60px;
-            height:60px;
-            border-radius:50% !important;
-            padding:10px;
-            line-height:40px;
-        }
-        #id_phone_0
-        {
-            width:28%;
-            float:left;
-        } 
-        #id_phone_1
-        {
-            width:70%;
-            float:right;
-        }
-        .phoner
-        {
-            position:absolute;
-            top:63px;
-            left:20px;
-        }
-        .modal-body button
-        {
-            padding:0 10px;
-            margin:10px 10px;
-        }
-        .nav-tabs li
-        {
-            margin:0 10px; 
-        }
-        .counter
-        {
-            width:40px;
-            height:40px;
-            line-height:30px;
-            border-radius:50%;
-        }
+    .border-edit
+    {
+        border:3px solid #51be78;
+        padding:8px;
+    }
+    .penwrapper
+    {
+        position:absolute;
+        bottom:-2px;
+        right:-1px;
+        width:30px;
+        height:30px;
+        background-color:#51be78;
+        cursor:pointer;
+        color:#fff;
+        line-height:30px;
+        text-align:center;
+        transition:all;
+    }
+    .penwrapper:hover
+    {
+        color:#51be78;
+        background:#fff;
+        border-bottom:3px solid #fff;
+        border-right-color:3px solid #fff;
+    }
     </style>
 </head>
 
@@ -147,50 +138,30 @@
                         </li>
                         <li class="icons">
                             <a href="javascript:void(0)" class="">
-                                <i class="icon-envelope"></i>
-                                <span class="badge badge-danger">3</span>
+                                <i class="fa fa-envelope"></i>
+                                <span class="badge badge-danger" style="color:#fff;"><b>{{count|intcomma}}</b></span>
                             </a>
                             <div class="drop-down animated flipInX">
                                 <div class="dropdown-content-body">
                                     <ul>
+                                        {% for message in messages %}
                                         <li class="notification-unread">
-                                            <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'panel/assets/images/avatar/1.jpg' %}" alt="avatar">
+                                            <a href="{% url 'reply' id=message.id %}">
+                                                <span class="mr-3 avatar-icon " style="color:#fff;background:{{message.bgcolor}}"><b>{{message.initials}}</b></span>
                                                 <div class="notification-content">
-                                                    <div class="notification-text">Hey, What's up! You have a good news !!!</div>
-                                                    <div class="notification-timestamp">08 Hours ago</div>
+                                                    <h6>{{message.name}}</h6>
+                                                    <div class="notification-text text-truncate">{{message.message}}</div>
+                                                    <div class="notification-timestamp">{{message.created_on}}</div>
                                                 </div>
                                             </a>
                                         </li>
+                                        {% empty %}
                                         <li class="notification-unread">
-                                            <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'panel/assets/images/avatar/2.jpg' %}" alt="avatar">
-                                                <div class="notification-content">
-                                                    <div class="notification-timestamp">08 Hours ago</div>
-                                                    <div class="notification-text">Can you do me a favour?</div>
-                                                </div>
-                                            </a>
+                                           <p>No new messages found.</p>
                                         </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'panel/assets/images/avatar/3.jpg' %}" alt="avatar">
-                                                <div class="notification-content">
-                                                    <div class="notification-text">Hey!</div>
-                                                    <div class="notification-timestamp">08 Hours ago</div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'panel/assets/images/avatar/4.jpg' %}" alt="avatar">
-                                                <div class="notification-content">
-                                                    <div class="notification-text">And what do you do?</div>
-                                                    <div class="notification-timestamp">08 Hours ago</div>
-                                                </div>
-                                            </a>
-                                        </li>
+                                        {% endfor %}
                                     </ul>
-                                    <a class="d-flex justify-content-center bg-primary px-4 text-light" href="email-inbox.html">
+                                    <a class="d-flex justify-content-center bg-primary px-4 text-light" href="{% url 'messages' %}">
                                         <span>See all messagese </span>
                                     </a>
                                 </div>
@@ -198,8 +169,8 @@
                         </li>
                         <li class="icons">
                             <a href="javascript:void(0)" class="">
-                                <i class="icon-bell"></i>
-                                <span class="badge badge-primary">3</span>
+                                <i class="fa fa-bell"></i>
+                                <span class="badge badge-primary" style="color:#fff;"><b>3</b></span>
                             </a>
                             <div class="drop-down animated flipInX dropdown-notfication">
                                 <div class="dropdown-content-body">
@@ -251,14 +222,14 @@
                         <li class="icons">
                             <div class="user-img c-pointer-x" style="cursor:pointer;">
                                 <span class="activity active"></span>
-                                <img src="{{data.extendedauthuser.profile_pic.url}}" height="40" width="40" alt="avatar">
+                                <img src="{% static 'manager/assets/images/loader.gif' %}" data-src="{{data.extendedauthuser.profile_pic.url}}" height="40" width="40" alt="avatar">
                             </div>
                             <div class="drop-down dropdown-profile animated flipInX">
                                 <div class="dropdown-content-body">
                                     <ul>
                                         <li><a href="{% url 'profile' username=data.username %}"><i class="icon-user"></i> <span>My Profile</span></a>
                                         </li>
-                                        <li><a href="javascript:void()"><i class="icon-envelope-open"></i> <span>My Inbox</span> <div class="badge gradient-3 badge-pill badge-primary">3</div></a>
+                                        <li><a href="{% url 'messages' %}" ><i class="icon-envelope-open"></i> <span>My Inbox</span> <div class="badge gradient-3 badge-pill badge-primary" style="color:#fff"><b>{{count|intcomma}}</b></div></a>
                                         </li>
                                         </li>
                                         <li><a href="{% url 'lock screen' username=data.username %}"><i class="icon-lock"></i> <span>Lock Screen</span></a>
@@ -293,7 +264,7 @@
                             <li><a href="{% url 'admins' %}">Admin Overview</a></li>
                             <li><a href="#">Donors Overview</a></li>
                             <li><a href="{% url 'employees' %}">Employee Overview</a></li>
-                            <li><a href="restaurant-menus.html">Donate programmes</a></li>
+                            <li><a href="#">Donate programmes</a></li>
                             
                         </ul>
                     </li>
@@ -321,23 +292,30 @@
                                 <input type="checkbox" class="h5" hidden/>
                             </li>
                         </ul>
+                    </li>  
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon-layers"></i><span class="nav-text">Site Settings</span></a>
+                        <ul aria-expanded="false">
+                            <li>
+                                <a href="{% url 'general' %}">General Site Settings</a>
+                            </li> 
+                            <li>
+                                <a href="{% url 'site gallary categories' %}">Gallary Categories</a>
+                                <a href="{% url 'site gallary' %}">Gallary</a>
+                                <a href="{% url 'site service' %}">Services</a>
+                                <a href="{% url 'site home page' %}">Home Page</a>
+                                <a href="{% url 'slider images' %}">Home Page Slider Images</a>
+                                <a href="{% url 'site about page' %}">About Page</a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-label">Apps</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon-screen-smartphone"></i><span class="nav-text">Apps</span></a>
                         <ul aria-expanded="false">
-                            <li><a href="#">Mailbox</a></li>
+                            <li><a href="{% url 'messages' %}">Mailbox</a></li>
                             <li><a href="{% url 'profile' username=data.username %}">Profile</a></li>
-                            <li><a href="#">Calendar</a></li>
+                            <li><a href="{% url 'calender' %}">Calendar</a></li>
                         </ul>
                     </li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="icon-globe"></i><span class="nav-text">Pages</span></a>
-                        <ul aria-expanded="false">
-                            <li><a href="#">page1</a></li>
-                            <li><a href="#">page2</a></li>
-                            <li><a href="#">page3</a></li>
-                        </ul>
-                    </li>
-
                 </ul>
             </div>
         </div>
@@ -634,16 +612,54 @@
         </div>
         </div>
     </div>
+
+    <!-- edit modal -->
+    <div class="modal fade edit-modal bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myEditModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="mySmallModalLabel">Edit Item</h5>
+                <button type="button" class="closser close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="editor modal-body position-relative">
+                    <div class="load-overlay" style="display:none">
+                        <span class="overlay-close btn-remove" title="close overlay">
+                            <i class="fa fa-close"></i>
+                        </span>
+                        <div class="overlay">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="loader-container">
+                                    <div class="loader">
+                                        <svg class="circular" viewBox="25 25 50 50">
+                                        <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                                        </svg>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="target">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--**********************************
         Scripts
     ***********************************-->
     <script src="{% static 'manager/assets/js/jquery-3.5.1.min.js' %}"></script>
     <script src="{% static 'panel/assets/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'panel/assets/js/bootstrap.bundle.min.js' %}"></script>
+    <!--<script src="{% static 'panel/assets/js/bootstrap.bundle.min.js' %}"></script>-->    
     <script src="{% static 'panel/assets/plugins/common/common.min.js' %}"></script>
     <script src="{% static 'panel/assets/js/custom.min.js' %}"></script>
     <script src="{% static 'panel/assets/js/settings.js' %}"></script>
     <script src="{% static 'panel/assets/js/quixnav.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.min.js' %}"></script>
     <script src="{% static 'panel/assets/js/styleSwitcher.js' %}"></script>
     <script src="{% static 'panel/assets/plugins/d3v3/index.js' %}"></script>
     <script src="{% static 'panel/assets/plugins/topojson/topojson.min.js' %}"></script>
@@ -653,12 +669,48 @@
     <script src="{% static 'panel/assets/plugins/fullcalendar/js/fullcalendar.min.js' %}"></script>
     <script src="{% static 'panel/assets/plugins/chart.js/Chart.bundle.min.js' %}"></script>
     <script src="{% static 'panel/assets/plugins/raphael/raphael.min.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/select2/js/select2.full.min.js' %}"></script>
+    <script src="{% static 'panel/assets/js/plugins-init/select2-init.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/jquery-asColor/jquery-asColor.min.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/jquery-asGradient/jquery-asGradient.min.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/jquery-asColorPicker/js/jquery-asColorPicker.min.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/summernote/js/summernote.min.js' %}"></script>
+    <script src="{% static 'panel/assets/js/plugins-init/summernote-init.js' %}"></script>
+    <script src="{% static 'panel/assets/js/plugins-init/jquery-asColorPicker.init.js' %}"></script>
     <script src="{% static 'panel/assets/plugins/morris/morris.min.js' %}"></script>
+    <script src="{% static  'panel/assets/plugins/dropify/dist/js/dropify.min.js' %}"></script>
+    <script src="{% static  'panel/assets/js/plugins-init/dropify-init.js' %}"></script>
+    <script src="{% static  'panel/assets/js/plugins-init/bootstrap-tagsinput-init.js' %}"></script>
     <script src="{% static 'panel/assets/plugins/owl.carousel/dist/js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'panel/assets/plugins/chartist/js/chartist.min.js' %}"></script>
     <script src="{% static 'panel/assets/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js' %}"></script>
     <script src="{% static 'panel/assets/js/plugins-init/fullcalendar-init.js' %}"></script>
     <script src="{% static 'panel/assets/js/dashboard/dashboard-1.js' %}"></script>
-    <script src="{% static 'manager/assets/js/custom.js' %}"></script>
+    <script src="{% static 'manager/assets/js/custom.js' %}"></script> 
+    <script>
+        var current='';
+        $(document).on('click','.penwrapper',function()
+        {
+            var el=$(this),
+            name='';
+            if(el.parent().find('img').length)
+            {
+                name=el.parent().find('img').data('name');
+            }
+            else
+            {
+                name=el.parent().find('.content').data('name');
+                current=el;
+            }
+            $('.form-area').find("input,textarea").parent().hide();
+            $('.form-area').find("input[name='"+name+"'],textarea[name='"+name+"']").parent().show();
+            $('.target').html($('.form-area').html()).find('form').show().find("input[name='"+name+"'],textarea[name='"+name+"']").val($.trim(el.parent().find('.content').text())).addClass('editor-pallate');
+            $('.edit-modal').modal({show:true});
+        });
+        $(document).on('keyup','.editor-pallate',function()
+        {
+            current.parent().find('.content').text($(this).val());
+        });
+    </script>  
 </body>
 </html>

@@ -299,3 +299,189 @@ padding-top: 100%;
 {
     color: green;
 }
+.float-btn
+{
+    position:fixed;
+    bottom:40px;
+    right:20px;
+    width:60px;
+    height:60px;
+    border-radius:50% !important;
+    padding:10px;
+    line-height:40px;
+}
+#id_phone_0
+{
+    width:28%;
+    float:left;
+} 
+#id_phone_1
+{
+    width:70%;
+    float:right;
+}
+.phoner
+{
+    position:absolute;
+    top:63px;
+    left:20px;
+}
+.modal-body button
+{
+    padding:5px 18px;
+    margin:10px 10px;
+}
+.nav-tabs li
+{
+    margin:0 10px; 
+}
+.counter
+{
+    width:40px;
+    height:40px;
+    line-height:30px;
+    border-radius:50%;
+}
+.bgcolor
+{
+    width:40px;
+    height:40px;
+    line-height:30px;
+    border-radius:50%; 
+    font-size:20px;
+}
+.image-part .about-quick-box .about-qcard 
+{
+    padding: 50px 30px;
+    background-color: #FFF;
+    box-shadow: 0 2px 3px 0 rgba(218, 218, 253, 0.35), 0 0px 3px 0 rgba(206, 206, 238, 0.35);
+    border-radius: 15px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.image-part .about-quick-box .about-qcard i 
+{
+    font-size: 3rem;
+    margin-bottom: 30px;
+    color: #3cc88f;
+}
+.image-part .about-quick-box .about-qcard p 
+{
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+.about-us .image-part .about-quick-box .about-qcard .red 
+{
+    color: #ff6b70;
+}
+.about-us .image-part .about-quick-box .about-qcard .yell {
+    color: #f7a900;
+}
+.about-us .image-part .about-quick-box .about-qcard .blu {
+    color: #21d7d9;
+}
+.doctor-message 
+{
+    background-image: url("../images/slider/slider-2.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+}
+@media screen and (max-width: 940px)
+{
+.doctor-message .inner-lay 
+{
+    padding: 30px 10px;
+}
+.doctor-message .inner-lay 
+{
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 50px;
+    color: #FFF;
+}
+@media screen and (max-width: 767px){
+.session-title {
+    padding: 5px;
+}
+.session-title 
+{
+    padding: 30px;
+    margin: 0px;
+    margin-bottom: 20px;
+}
+.doctor-message .session-title h2 {
+    color: #FFF;
+}
+.session-title h2 {
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 0px;
+}
+.session-title p {
+    max-width: 850px;
+    text-align: center;
+    float: none;
+    margin: auto;
+    font-size: .9rem;
+    margin-top: 6px;
+}
+.doctor-message .inner-lay .numb {
+    text-align: center;
+    padding: 30px;
+}
+.doctor-message .inner-lay .numb h3 {
+    font-size: 42px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #CCC;
+    margin-bottom: 20px;
+    color: #FFF;
+}
+.doctor-message .inner-lay .numb {
+    text-align: center;
+    padding: 30px;
+}
+.our-team {
+    padding: 50px;
+    background-color: #cccccc1c;
+}
+.our-team .session-title {
+    padding: 30px;
+    margin: 0px;
+    margin-bottom: 20px;
+}
+.our-team .session-title h2 {
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 0px;
+}
+
+.our-team .session-title p {
+    max-width: 850px;
+    text-align: center;
+    float: none;
+    margin: auto;
+    font-size: .9rem;
+    margin-top: 6px;
+}
+.team-row {
+    margin-top: 20px;
+}
+.single-usr {
+    box-shadow: 0 2px 6px 0 rgba(218, 218, 253, 0.65), 0 2px 6px 0 rgba(206, 206, 238, 0.54);
+    margin-bottom: 20px;
+}
+.det-o {
+    padding: 20px;
+    background-color: #3cc88f;
+}
+.det-o h4 {
+    color: #FFF;
+    margin-bottom: 0px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+.det-o i {
+    color: #FFF;
+    font-size: .8rem;
+}

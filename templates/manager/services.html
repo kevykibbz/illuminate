@@ -1,5 +1,6 @@
 {% extends 'manager/base.html' %}
 {% load static %}
+{% load humanize %}
 {% block body %}
 <div class="page-nav no-margin row">
     <div class="container">
@@ -16,6 +17,18 @@
     <div class="container">
         
         <div class="event-ro row">
+            {% for service in services %}
+            <div class="col-md-4 col-sm-6">
+                <div class="event-box">
+                    <img src="{% static 'manager/assets/images/loader.gif' %}" data-src="{{service.imagegallary.url}}" alt="{{service.title}}">
+                    <h4>{{service.title}}</h4>
+                    
+                    <p class="raises"><span>Raised : ${{service.raised|intcomma}}</span> / ${{service.total|intcomma}} </p>
+                    <p class="desic">{{service.description}}</p>
+                    <button class="btn btn-success btn-sm">Donate Now</button>
+                </div>
+            </div>
+            {% empty %}
             <div class="col-md-4 col-sm-6">
                 <div class="event-box">
                     <img src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'manager/assets/images/events/image_08.jpg' %}" alt="">
@@ -62,7 +75,7 @@
                     <button class="btn btn-success btn-sm">Donate Now</button>
                 </div>
             </div>
-                <div class="col-md-4 col-sm-6">
+            <div class="col-md-4 col-sm-6">
                 <div class="event-box">
                     <img src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'manager/assets/images/events/image_07.jpg' %}" alt="">
                     <h4>Child Education in Africa</h4>
@@ -71,6 +84,7 @@
                     <button class="btn btn-success btn-sm">Donate Now</button>
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
 </section>

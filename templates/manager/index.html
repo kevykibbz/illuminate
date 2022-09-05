@@ -1,9 +1,26 @@
 {% extends 'manager/base.html' %}
 {% load static %}
+{% load humanize %}
 {% block body %}
     <div class="slider">
         <!-- Set up your HTML -->
         <div class="owl-carousel ">
+            {% for slider in sliders %}
+            <div class="item">
+                <div class="slider-img"><img  class="img-responsive" src="{{slider.slider_image.url}}" alt="{{slider.slider_head}}"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-12 col-xs-12">
+                            <div class="slider-captions ">
+                                <h1 class="slider-title">{{slider.slider_head}}</h1>
+                                <p class="slider-text hidden-xs">{{slider.slider_text}}</p>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
             <div class="slider-img">
                 <div class="item">
                     <div class="slider-img"><img src="{% static 'manager/assets/images/slider/slider-3.jpg' %}" alt=""></div>
@@ -48,7 +65,7 @@
                     </div>
                 </div>
             </div>
-
+            {% endfor %}
         </div>
     </div> 
 
@@ -58,23 +75,28 @@
 
             <div class="row natur-row no-margin w-100">
                 <div class="text-part col-md-6">
-                    <h2>About Our Charity</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis varius faucibus
+                    <h2 class=" text-capitalize">{{about.h1|default:'About Our Charity'}}</h2>
+                    <p>
+                        {% if about.h1_text %}
+                            {{about.h1_text}}
+                        {% else %}
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis varius faucibus
                         ligula non congue. Suspendisse at pretium massa, sit amet
-                        vulputate nibh. Nam posuere eros dolor. Donec vel arcu sagittis, pretium nisl </p>
-                    <p> Cras faucibus laoreet nibh, sit amet tincidunt leo mollis in. Etiam eu mauris metus.
+                        vulputate nibh. Nam posuere eros dolor. Donec vel arcu sagittis, pretium nisl
+                        Cras faucibus laoreet nibh, sit amet tincidunt leo mollis in. Etiam eu mauris metus.
                         Nulla facilisi. Etiam vestibulum,
                         nisi et convallis elementum, leo orci aliquam metus, id posuere massa neque vitae
-                        arcu.</p>
-
-                    <p>Integer vulputate vehicula dolor a eleifend. Duis aliquam condimentum sapien,
+                        arcu
+                        Integer vulputate vehicula dolor a eleifend. Duis aliquam condimentum sapien,
                         eget tempor justo. Aenean porttitor nibh metus, sollicitudin egestas metus posuere et
                         . Fusce egestas volutpat metus, in sodales sem bibendum porta. Nunc hendrerit nunc sit
                         amet tellus posuere, at malesuada sem gravida. Integer maximus ultricies augue, at
                         dapibus elit bibendum consequat. Cras faucibus tellus eleifend, fermentum purus in,
                         dapibus sapien. Praesent nec ornare risus. Etiam iaculis, ligula vel gravida
                         vestibulum, urna justo posuere ante,
-                        id pretium massa arcu sed mi. Nunc a sollicitudin sem. Duis tempus </p>
+                        id pretium massa arcu sed mi. Nunc a sollicitudin sem. Duis tempus
+                        {% endif %}
+                    </p>
                 </div>
                 <div class="image-part col-md-6">
                     <div class="about-quick-box row">
@@ -110,27 +132,47 @@
    
 
     <section class="container-fluid mission-vision">
-        <div class="container">
-            <div class="row mission">
-                <div class="col-md-6 mv-det">
-                    <h1>Our Mission</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer neque libero, pulvinar et elementum quis, facilisis eu ante. Mauris non placerat sapien. Pellentesque tempor arcu non odio scelerisque ullamcorper. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius eros consequat auctor gravida. Fusce tristique lacus at urna sollicitudin pulvinar. Suspendisse hendrerit ultrices mauris.</p>
-                </div>
-                <div class="col-md-6 mv-img">
-                    <img src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'manager/assets/images/misin.jpg' %}" alt="">
-                </div>
+    <div class="container">
+        <div class="row mission">
+            <div class="col-md-6 mv-det">
+                <h1 class="content text-capitalize" data-name="h2">{{about.h2|default:'Our Mission'}}</h1>
+                <p>
+                    {% if about.h2_text %}
+                        {{about.h2_text}}
+                    {% else %}
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer neque libero, pulvinar et elementum quis, facilisis eu ante. Mauris non placerat sapien. Pellentesque tempor arcu non odio scelerisque ullamcorper. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius eros consequat auctor gravida. Fusce tristique lacus at urna sollicitudin pulvinar. Suspendisse hendrerit ultrices mauris.
+                    {% endif %}
+                </p>
             </div>
-            <div class="row vision">
-                <div class="col-md-6 mv-img">
-                    <img src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'manager/assets/images/vision.jpg' %}" alt="">
-                </div>
-                <div class="col-md-6 mv-det">
-                    <h1>Our Vision</h1>
-                    <p>Ut ultricies lacus a rutrum mollis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed porta dolor quis felis pulvinar dignissim. Etiam nisl ligula, ullamcorper non metus vitae, maximus efficitur mi. Vivamus ut ex ullamcorper, scelerisque lacus nec, commodo dui. Proin massa urna, volutpat vel augue eget, iaculis tristique dui.</p>
-                </div>
+            <div class="col-md-6 mv-img">
+                {% if about.h2_image %}
+                <img data-name="h2_image" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{{about.h2_image.url}}" alt="{{about.h2_image}}">
+                {% else %}
+                <img data-name="h2_image" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'manager/assets/images/vision.jpg' %}" alt="">
+                {% endif %}
             </div>
         </div>
-    </section>   
+        <div class="row vision">
+            <div class="col-md-6 mv-img">
+                {% if about.h3_image %}
+                <img data-name="h3_image" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{{about.h3_image.url}}" alt="{{about.h3_image}}">
+                {% else %}
+                <img data-name="h3_image" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'manager/assets/images/vision.jpg' %}" alt="">
+                {% endif %}
+            </div>
+            <div class="col-md-6 mv-det">
+                <h1 class="content text-capitalize" data-name="h3">{{about.h2|default:'Our Vision'}}</h1>
+                <p>
+                {% if about.h3_text %}
+                    {{about.h3_text}}
+                {% else %}
+                    Ut ultricies lacus a rutrum mollis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed porta dolor quis felis pulvinar dignissim. Etiam nisl ligula, ullamcorper non metus vitae, maximus efficitur mi. Vivamus ut ex ullamcorper, scelerisque lacus nec, commodo dui. Proin massa urna, volutpat vel augue eget, iaculis tristique dui.
+                {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>   
    
 
     <section class="events">
@@ -140,6 +182,18 @@
                 <p>We are a non-profital & Charity raising money for child education</p> 
             </div>
             <div class="event-ro row">
+                {% for service in services %}
+                <div class="col-md-4 col-sm-6">
+                    <div class="event-box">
+                        <img src="{% static 'manager/assets/images/loader.gif' %}" data-src="{{service.imagegallary.url}}" alt="{{service.title}}">
+                        <h4>{{service.title}}</h4>
+                        
+                        <p class="raises"><span>Raised : ${{service.raised|intcomma}}</span> / ${{service.total|intcomma}} </p>
+                        <p class="desic">{{service.description}}</p>
+                        <button class="btn btn-success btn-sm">Donate Now</button>
+                    </div>
+                </div>
+                {% empty %}
                 <div class="col-md-4 col-sm-6">
                     <div class="event-box">
                         <img  src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'manager/assets/images/events/image_08.jpg' %}" alt="">
@@ -168,6 +222,7 @@
                         <button class="btn btn-success btn-sm">Donate Now</button>
                     </div>
                 </div>
+                {% endfor %}
             </div>
         </div>
     </section>   
@@ -179,72 +234,97 @@
         <div class="inner-lay">
             <div class="container">
                <div class="row session-title">
-                   <h2>Our Achievemtns in Numbers</h2>
-                   <p>We can talk for a long time about advantages of our Dental clinic before other medical treatment facilities.
-                   But you can read the following facts in order to make sure of all pluses of our clinic:</p>
+                <h2>{{home.archieve_head|default:'Our Achievemtns in Numbers'}}</h2>                   
+                <p>{% if home.archieve_text %}
+                                {{home.archieve_text}}
+                                {% else %}
+                                We can talk for a long time about advantages of our Dental clinic before other medical treatment facilities.
+                               But you can read the following facts in order to make sure of all pluses of our clinic {% endif %}</p>
                </div>
                 <div class="row">
                     <div class="col-sm-3 numb">
-                        <h3>12+</h3>
-                        <span>YEARS OF EXPEREANCE</span>
+                        <h3>{{home.no_year_of_expe|default:'12+'}}</h3>
+                        <span>{{home.text_year_of_expe|default:'YEARS OF EXPEREANCE'}}</span>
                     </div>
                     <div class="col-sm-3 numb">
-                        <h3>1812+</h3>
-                        <span>HAPPY CHILDRENS</span>
+                        <h3>{{home.no_happy_children|default:'1812+'}}</h3>
+                        <span>{{home.text_happy_children|default:'HAPPY CHILDRENS'}}</span>
                     </div>
                     <div class="col-sm-3 numb">
-                        <h3>52+</h3>
-                        <span>EVENTS</span>
+                        <h3>{{home.no_event|default:'52+'}}</h3>
+                        <span>{{home.text_event|default:'EVENTS'}}</span>
                     </div>
                     <div class="col-sm-3 numb">
-                        <h3>48+</h3>
-                        <span>FUNT RAISED</span>
+                        <h3>{{home.no_fund_raised|default:'48'}}</h3>
+                        <span>{{home.text_fund_raised|default:'FUNT RAISED'}}</span>
                     </div>
                 </div>
             </div>
         </div>
     </div> 
          
-    <section class="our-team team-11">
+   <section class="our-team team-11">
         <div class="container">
             <div class="session-title row">
                     <h2>Meet our Team</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla vel nisl a dictum. Donec ut est arcu. Donec hendrerit velit</p>
+                    <p>
+                        {% if home.team_head %}
+                            {{home.team_head}}
+                        {% else %}
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fringilla vel nisl a dictum. Donec ut est arcu. Donec hendrerit velit
+                        {% endif %}
+                    </p>
             </div>
             <div class="row team-row">
                 <div class="col-md-3 col-sm-6">
                     <div class="single-usr">
-                        <img src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'manager/assets/images/team/team-memb1.jpg' %}" alt="">
+                        {% if home.team1_image %}
+                            <img class="img-responsive"class="img-responsive" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{{home.team1_image.url}}" alt="{{home.team1_name}}">
+                        {% else %}
+                            <img class="img-responsive" class="img-responsive" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'manager/assets/images/team/team-memb1.jpg' %}" alt="">
+                        {% endif %}
                         <div class="det-o">
-                            <h4>David Kanuel</h4>
-                            <i>CEO </i>
+                            <h4 class="text-capitalize">{{home.team1_name|default:'David Kanuel'}}</h4>
+                            <i class=" text-capitalize">{{home.team1_title|default:'CEO'}} </i>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="single-usr">
-                        <img src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'manager/assets/images/team/team-memb2.jpg' %}" alt="">
+                        {% if home.team2_image %}
+                            <img class="img-responsive" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{{home.team2_image.url}}" alt="{{home.team2_name}}">
+                        {% else %}
+                            <img class="img-responsive" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'manager/assets/images/team/team-memb2.jpg' %}" alt="">
+                        {% endif %}
                         <div class="det-o">
-                            <h4>David Kanuel</h4>
-                            <i>CFO</i>
+                            <h4 class="text-capitalize">{{home.team2_name|default:'David Kanuel'}}</h4>
+                            <i class="text-capitalize">{{home.team2_title|default:'CFO'}}</i>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="single-usr">
-                        <img src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'manager/assets/images/team/team-memb3.jpg' %}" alt="">
+                        {% if home.team3_image %}
+                            <img class="img-responsive"  src="{% static 'manager/assets/images/loader.gif' %}" data-src="{{home.team3_image.url}}" alt="{{home.team3_name}}">
+                        {% else %}
+                            <img class="img-responsive" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'manager/assets/images/team/team-memb3.jpg' %}" alt="">
+                        {% endif %}
                         <div class="det-o">
-                            <h4>David Kanuel</h4>
-                            <i>Team Leader</i>
+                            <h4 class=" text-capitalize">{{home.team3_name|default:'David Kanuel'}}</h4>
+                           <i class=" text-capitalize">{{home.team3_title|default:'Team Leader'}}</i>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="single-usr">
-                        <img src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'manager/assets/images/team/team-memb4.jpg'%}" alt="">
+                        {% if home.team4_image %}
+                            <img class="img-responsive" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{{home.team4_image.url}}" alt="{{home.team4_name}}">
+                        {% else %}
+                            <img class="img-responsive" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'manager/assets/images/team/team-memb4.jpg'%}" alt="">
+                        {% endif %}
                         <div class="det-o">
-                            <h4>David Kanuel</h4>
-                            <i>Project Manager</i>
+                           <h4 class=" text-capitalize">{{home.team4_name|default:'David Kanuel'}}</h4>
+                            <i class=" text-capitalize">{{home.team3_title|default:'Project Manager'}}</i>
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,184 @@
+{% extends 'panel/main.html' %}
+{% load static %}
+{% block body %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="breadcrumb-range-picker">
+            <span><i class="icon-calender"></i></span>
+            <span class="ml-1">{% now 'l' %}, {% now 'd m Y' %}</span>
+        </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/panel">Home</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">About Page</a></li>
+        </ol>
+    </div>
+</div>
+<!-- row -->
+<div class="about-us container-fluid">
+	<div class="row">
+		<div class="text-part col-md-6">
+			<div class="position-relative border-edit">
+				<h2 class="content text-capitalize" data-name="h1">{{about.h1|default:'About Our Charity'}}</h2>
+				<i class="penwrapper fa fa-pen"></i>
+			</div>
+			<br>
+	        <div class="position-relative border-edit">
+	        	<i class="penwrapper fa fa-pen"></i>
+	        	<p class="content" data-name="h1_text">
+		        	{% if about.h1_text %}
+		        		{{about.h1_text}}
+		        	{% else %}
+		        	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis varius faucibus
+		            ligula non congue. Suspendisse at pretium massa, sit amet
+		            vulputate nibh. Nam posuere eros dolor. Donec vel arcu sagittis, pretium nisl
+		         	Cras faucibus laoreet nibh, sit amet tincidunt leo mollis in. Etiam eu mauris metus.
+		            Nulla facilisi. Etiam vestibulum,
+		            nisi et convallis elementum, leo orci aliquam metus, id posuere massa neque vitae
+		            arcu
+		        	Integer vulputate vehicula dolor a eleifend. Duis aliquam condimentum sapien,
+		            eget tempor justo. Aenean porttitor nibh metus, sollicitudin egestas metus posuere et
+		            . Fusce egestas volutpat metus, in sodales sem bibendum porta. Nunc hendrerit nunc sit
+		            amet tellus posuere, at malesuada sem gravida. Integer maximus ultricies augue, at
+		            dapibus elit bibendum consequat. Cras faucibus tellus eleifend, fermentum purus in,
+		            dapibus sapien. Praesent nec ornare risus. Etiam iaculis, ligula vel gravida
+		            vestibulum, urna justo posuere ante,
+		            id pretium massa arcu sed mi. Nunc a sollicitudin sem. Duis tempus
+		            {% endif %}
+		        </p>
+	        </div>
+	    </div>
+	    <div class="mt-md-0 mt-3 image-part col-md-6">
+	        <div class="about-quick-box row">
+	            <div class="col-md-6">
+	                <div class="about-qcard">
+	                   <i class="fa fa-user"></i>
+	                    <p>Become a Volunteer</p>
+	                </div>
+	            </div>
+	             <div class="col-md-6">
+	                <div class="about-qcard ">
+	                   <i class="fa fa-search-dollar red"></i>
+	                    <p>Quick Fundraise</p>
+	                </div>
+	            </div>
+	             <div class="col-md-6">
+	                <div class="about-qcard ">
+	                   <i class="fa fa-donate yell"></i>
+	                    <p>Give Donation</p>
+	                </div>
+	            </div>
+	             <div class="col-md-6">
+	                <div class="about-qcard ">
+	                   <i class="fa fa-hands-helping blu"></i>
+	                    <p>Help Someone</p>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<br>
+	<br>
+	<div class="mt-3 mb-3 row mission">
+        <div class="col-md-6 mv-det">
+            <div class="position-relative border-edit">
+            	<h1 class="content text-capitalize" data-name="h2">{{about.h2|default:'Our Mission'}}</h1>
+				<i class="penwrapper fa fa-pen"></i>
+			</div>
+			<br>
+			<div class="position-relative border-edit">
+				<i class="penwrapper fa fa-pen"></i>
+	            <p class="content" data-name="h2_text">
+            		{% if about.h2_text %}
+		        		{{about.h2_text}}
+		        	{% else %}
+		            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer neque libero, pulvinar et elementum quis, facilisis eu ante. Mauris non placerat sapien. Pellentesque tempor arcu non odio scelerisque ullamcorper. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius eros consequat auctor gravida. Fusce tristique lacus at urna sollicitudin pulvinar. Suspendisse hendrerit ultrices mauris.
+		           	{% endif %}
+	        	</p>
+	        </div>
+        </div>
+        <div class="mt-md-0 mt-3 position-relative border-edit col-md-6 mv-img">
+    		<i class="penwrapper fa fa-pen"></i>
+        	{% if about.h2_image %}
+            <img data-name="h2_image" class="img-responsive"  src="{% static 'manager/assets/images/loader.gif' %}" data-src="{{about.h2_image.url}}" alt="{{about.h2_image}}">
+            {% else %}
+            <img data-name="h2_image" class="img-responsive"  src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'manager/assets/images/vision.jpg' %}" alt="">
+            {% endif %}
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="mt-3 mb-3 row vision">
+        <div class="mb-md-0 mb-3 position-relative border-edit col-md-6 mv-img">
+        	<i class="penwrapper fa fa-pen"></i>
+        	{% if about.h3_image %}
+            <img data-name="h3_image" class="img-responsive" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{{about.h3_image.url}}" alt="{{about.h3_image}}">
+            {% else %}
+            <img data-name="h3_image" class="img-responsive"  src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'manager/assets/images/vision.jpg' %}" alt="">
+            {% endif %}
+        </div>
+        <div class="col-md-6 mv-det">
+        	<div class="position-relative border-edit">
+            	<h1 class="content text-capitalize" data-name="h3">{{about.h3|default:'Our Vision'}}</h1>
+				<i class="penwrapper fa fa-pen"></i>
+			</div>
+			<br>
+			<div class="position-relative border-edit">
+				<i class="penwrapper fa fa-pen"></i>
+	            <p class="content" data-name="h3_text">
+            	{% if about.h3_text %}
+	        		{{about.h3_text}}
+	        	{% else %}
+		            Ut ultricies lacus a rutrum mollis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed porta dolor quis felis pulvinar dignissim. Etiam nisl ligula, ullamcorper non metus vitae, maximus efficitur mi. Vivamus ut ex ullamcorper, scelerisque lacus nec, commodo dui. Proin massa urna, volutpat vel augue eget, iaculis tristique dui.
+		        {% endif %}
+		        </p>
+	        </div>
+        </div>
+    </div>
+    <div class="row" style="display:none">
+    	<div class="col-md-6 col-12 mx-auto">
+			<div class="form-area">
+				<form action="" novalidate method="post" class="ActiveForm">
+			        {% csrf_token %}
+			        <div class="form-group">
+			        	{{form.h1}}
+			           <div class="feedback"></div>
+			        </div> 
+			        <div class="form-group">
+			        	{{form.h1_text}}
+			           <div class="feedback"></div>
+			        </div>
+			        <div class="form-group">
+			        	{{form.h2}}
+			           <div class="feedback"></div>
+			        </div>
+			        <div class="form-group">
+			        	{{form.h2_text}}
+			           <div class="feedback"></div>
+			        </div>
+			        <div class="form-group">
+			        	{{form.h2_image}}
+			           <div class="feedback"></div>
+			        </div>
+			        <div class="form-group">
+			        	{{form.h3}}
+			           <div class="feedback"></div>
+			        </div>
+			        <div class="form-group">
+			        	{{form.h3_text}}
+			           <div class="feedback"></div>
+			        </div>
+			        <div class="form-group">
+			        	{{form.h3_image}}
+			           <div class="feedback"></div>
+			        </div>
+			        <div class="text-center">
+			            <button class="btn btn-primary input-rounded">Submit</button>
+			        </div>
+			   </form>
+			</div>
+    	</div>
+    </div>
+</div>
+{% endblock %}

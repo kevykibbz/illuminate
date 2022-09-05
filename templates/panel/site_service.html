@@ -1,0 +1,86 @@
+{% extends 'panel/main.html' %}
+{% load static %}
+{% load humanize %}
+{% block body %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="breadcrumb-range-picker">
+            <span><i class="icon-calender"></i></span>
+            <span class="ml-1">{% now 'l' %}, {% now 'd m Y' %}</span>
+        </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/panel">Home</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Site services</a></li>
+        </ol>
+    </div>
+</div>
+<!-- row -->
+<a href="{% url 'add service' %}" class="float-btn btn btn-primary"><i class="fa fa-plus"></i></a>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h3 class="content-heading">Service overview</h3>
+        </div>
+        <div class="col-md-10 col-12 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">View site services ({{acount|intcomma}})</h4>
+                    <div class="table-responsive table-results">
+                        <table class="table table-responsive-sm table-stripped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Title</th>
+                                    <th>Image</th>
+                                    <th>Raised money</th>
+                                    <th>Total money</th>
+                                    <th>Description</th>
+                                    <th>Date Created</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for service in services %}
+                                <tr id="id_{{service.id}}">
+                                    <th>{{forloop.counter}}</th>
+                                    <td class="text-truncate">{{service.title}}</td>
+                                    <td>
+                                        <a class="image-preview" href="{{service.imagegallary.url}}" target="_blank">
+                                        	<i class="fa fa-file"></i> {{service.imagegallary}}
+                                        </a>
+                                    </td>
+                                    <td>{{service.raised}}</td>
+                                    <td>{{service.total}}</td>
+                                    <td lass="text-truncate">{{service.description}}</td>
+                                    <td lass="text-truncate">{{service.created_on}}</td>
+                                    <td>
+                                        <a href="{% url 'edit service' id=service.id %}" class="btn btn-success input-rounded"><i class="fa fa-edit"></i> Edit</a>
+                                        <a data-host="{% url 'site service' %}" href="{% url 'delete service' id=service.id %}" data-toggle="tooltip" title="Delete {{service.title}}" class="del-data btn btn-danger input-rounded" type="button"><i class="fa fa-trash"></i> Delete</a>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="9" class="text-center">
+                                        <p><i class="fa fa-excamation-circle"></i> No site services data found </p>
+                                    </td>
+                                </tr>
+                                {% endfor%}
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul class="pagination pagination-primary mt-4">
+                        {% if services.has_previous %}
+                        <li class="page-item active"><a class="page-link" href="{% url 'site service' %}?page={{services.previous_page_number}}"><i class="fa fa-chevron-left"></i></a></li>
+                        {% endif %}
+                        {% if services.has_next %}
+                        <li class="page-item active"><a class="page-link" href="{% url 'site service' %}?page={{services.next_page_number}}"><i class="fa fa-chevron-right"></i></a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

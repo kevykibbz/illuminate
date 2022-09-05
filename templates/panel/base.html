@@ -27,7 +27,7 @@
     <meta property="og:title" content="{{obj.site_name}} | {{title}}">
     <meta property="og:locale" content="en_US">
     <meta property="og:description" content="{{obj.description}}">
-    <meta property="og:image" content="{% static 'manager/assets/images/logos/favicon.ico' %}">
+    <meta property="og:image" content="{{obj.favicon.url}}">
     <meta name="apple-mobile-web-app-title" content="{{obj.site_name}}">
     <meta name="application-name" content="{{obj.site_name}}">
     <meta name="msapplication-TileColor" content="{{obj.theme_color}}">
@@ -37,7 +37,7 @@
     <meta name="robots" content="index, follow" />
     <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-    <link rel="shortcut icon" href="{% static 'manager/assets/images/fav.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{obj.favicon.url}}" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'panel/assets/css/font-awesome.min.css' %}">

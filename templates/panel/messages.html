@@ -1,0 +1,126 @@
+{% extends 'panel/main.html' %}
+{% load static %}
+{% load humanize %}
+{% block body %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="breadcrumb-range-picker">
+            <span><i class="icon-calender"></i></span>
+            <span class="ml-1">{% now 'l' %}, {% now 'd m Y' %}</span>
+        </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/panel">Home</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Messages</a></li>
+        </ol>
+    </div>
+</div>
+<!-- row -->
+
+<div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="email-left-box px-0 bg-white mb-5">
+                                    <div class="px-3 pt-1 pb-3 mt-4">
+                                        <a href="#" class="btn btn-primary btn-block input-rounded">Compose</a>
+                                    </div>
+                                    <div class="mail-list mt-4">
+                                        <a href="email-inbox.html" class="list-group-item active"><i class="fa fa-inbox font-18 align-middle mr-2"></i> Inbox <span class="badge badge-primary badge-sm float-right">{{count|intcomma}}</span> </a>
+                                        <a href="javascript:void()" class="list-group-item"><i class="fa fa-paper-plane font-18 align-middle mr-2"></i>Sent</a>  <a href="javascript:void()" class="list-group-item"><i class="fa fa-star font-18 align-middle mr-2"></i>Important <span class="badge badge-danger text-white badge-sm float-right">47</span> </a>
+                                        <a href="javascript:void()" class="list-group-item"><i class="mdi mdi-file-document-box font-18 align-middle mr-2"></i>Draft</a><a href="javascript:void()" class="list-group-item"><i class="fa fa-trash font-18 align-middle mr-2"></i>Trash</a>
+                                    </div>
+                                    <div class="intro-title d-flex justify-content-between">
+                                        <h5>Categories</h5>
+                                        <i class="icon-arrow-down" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="mail-list mt-4">
+                                        <a href="email-inbox.html" class="list-group-item"><span class="icon-warning"><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                            Work </a>
+                                        <a href="email-inbox.html" class="list-group-item"><span class="icon-primary"><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                            Private </a>
+                                        <a href="email-inbox.html" class="list-group-item"><span class="icon-success"><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                                Support </a>
+                                        <a href="email-inbox.html" class="list-group-item"><span class="icon-dpink"><i class="fa fa-circle" aria-hidden="true"></i></span>
+                                                Social </a>
+                                    </div>
+                                </div>
+                                <div class="email-right-box bg-white">
+                                    <div role="toolbar" class="toolbar ml-4 ml-sm-0">
+                                        <div class="btn-group mb-4">
+                                            <span class="btn btn-dark ml-3">
+                                                <input type="checkbox">
+                                            </span>
+                                            <a href="{% url 'messages'%}" class="btn btn-dark" type="button"><i class="ti-reload"></i>
+                                            </a>
+                                        </div>
+                                        <div class="btn-group mb-4">
+                                            <button aria-expanded="false" data-toggle="dropdown" class="btn btn-dark dropdown-toggle" type="button">More <span class="caret"></span>
+                                            </button>
+                                            <div class="dropdown-menu">  <a href="javascript: void(0);" class="dropdown-item">Mark as Unread</a>  <a href="javascript: void(0);" class="dropdown-item">Add to Tasks</a>  <a href="javascript: void(0);"
+                                                class="dropdown-item">Add Star</a>  <a href="javascript: void(0);" class="dropdown-item">Mute</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="email-list mt-4">
+                                        {% for message in messages %}
+                                        <div class="message">
+                                            <div>
+                                                <div class="d-flex message-single">
+                                                    <div class="custom-control custom-checkbox pl-4">
+                                                        <input type="checkbox">
+                                                    </div>
+                                                    <div class="ml-2">
+                                                        <button class="border-0 bg-transparent align-middle p-0"><i class="fa fa-star" aria-hidden="true"></i></button>
+                                                    </div>
+                                                </div>
+                                                <a href="{% url 'reply' id=message.id %}" class="col-mail col-mail-2">
+                                                    <div class="row">
+                                                        <div class="col-8">
+                                                            <div class="subject">
+                                                                <b>{{message.name}}</b> &bull; {{message.message}}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4 text-right">
+                                                            {{message.created_on}}
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        {% empty %}
+                                         <div class="message">
+                                            <div>
+                                                <a href="javascript:void(0)" class="col-mail col-mail-2">
+                                                    <div class="subject">No new message(s)</div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    <!-- panel -->
+                                    <div class="row mt-4 m-4 mx-sm-4">
+                                        <div class="col-7">
+                                            <div class="text-left">1 - 20 of 568</div>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="btn-group float-right">
+                                                {% if orders.has_previous %}
+                                                <a class="btn btn-dark" href="{% url 'messages' %}?page={{messages.previous_page_number}}"><i class="fa fa-angle-left"></i></a>
+                                                {% endif %}
+                                                {% if orders.has_next %}
+                                                <a class="btn-dark" href="{% url 'messages' %}?page={{messages.next_page_number}}"><i class="fa fa-angle-right"></i></a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+{% endblock %}

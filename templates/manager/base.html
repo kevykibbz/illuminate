@@ -27,7 +27,7 @@
     <meta property="og:title" content="{{obj.site_name}} | {{title}}">
     <meta property="og:locale" content="en_US">
     <meta property="og:description" content="{{obj.description}}">
-    <meta property="og:image" content="{% static 'manager/assets/images/logos/favicon.ico' %}">
+    <meta property="og:image" content="{{obj.favicon.url}}">
     <meta name="apple-mobile-web-app-title" content="{{obj.site_name}}">
     <meta name="application-name" content="{{obj.site_name}}">
     <meta name="msapplication-TileColor" content="{{obj.theme_color}}">
@@ -37,7 +37,7 @@
     <meta name="robots" content="index, follow" />
     <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-    <link rel="shortcut icon" href="{% static 'manager/assets/images/fav.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{obj.favicon.url}}" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="assets/images/fav.jpg">
     <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/css/bootstrap.min.css' %}">
@@ -51,6 +51,12 @@
         .social-link a
         {
             padding:0 12px;
+        }
+        .btn-round,
+        .input-round
+        {
+            padding: 5px 23px;
+            border-radius: 50px;
         }
     </style>
 </head>
@@ -136,14 +142,17 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/gallary">Gallery</a>
+                                    <a class="nav-link" href="{% url 'gallary' %}">Gallery</a>
                                 </li>
 
                                 <li class="nav-item">
                                     <a class="nav-link" href="{% url 'blog' %}">Blog</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'contact' %}">Contact US</a>
+                                    <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                                </li> 
+                                <li class="nav-item d-md-none d-block">
+                                    <a class="nav-link btn btn-sm btn-success text-light" href="{% url 'login' %}"><b>Login</b></a>
                                 </li>
                             </ul>
                         </div>

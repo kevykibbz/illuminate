@@ -19,7 +19,7 @@ DEBUG = False
 if DEBUG:
     ALLOWED_HOSTS = []
 else:
-    ALLOWED_HOSTS = ['illuminate-africa-initiative.herokuapp.com','www.illuminate-africa-initiative.herokuapp.com',]
+    ALLOWED_HOSTS = ['192.168.43.106','illuminate-africa-initiative.herokuapp.com','www.illuminate-africa-initiative.herokuapp.com',]
 
 SITE_ID=2
 AUTHENTICATION_BACKENDS = [
@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'errors.apps.ErrorsConfig',
     'manager.apps.ManagerConfig',
-    'django_cleanup.apps.CleanupConfig',
     'django.contrib.sites', #social app 
     'allauth', #social app
     'allauth.account', #social app
@@ -52,6 +51,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google', #social app
     'allauth.socialaccount.providers.twitter', #social app
     'allauth.socialaccount.providers.github', #social app
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
@@ -188,7 +188,7 @@ LOGOUT_REDIRECT_URL='/accounts/login'
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA='/media/'
+MEDIA_URL='/media/'
 
 #STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Default primary key field type

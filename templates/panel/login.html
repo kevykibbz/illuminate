@@ -36,7 +36,7 @@
                                 </div>
                             </div>
                             <div class="text-center my-3">
-                                <img class="rounded-circle" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{% static 'panel/assets/images/11.png' %}" width="80" height="80" alt="{{obj.site_name}} logo">
+                                <img class="rounded-circle" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{{obj.favicon.url}}" width="80" height="80" alt="{{obj.site_name}} logo">
                             </div>
                             <div class="card-body">
                                 <form class="loginForm" action="" method="post" novalidate>
@@ -54,7 +54,7 @@
                                         <input id="checkbox1" name="remember" type="checkbox">
                                         <label class="label-checkbox ml-2 mb-0" for="checkbox1">Remember Password</label>
                                     </div>
-                                    <button class="btn btn-primary btn-block border-0" type="submit">Login</button>
+                                    <button class="btn btn-primary btn-block border-0 input-rounded" type="submit">Login</button>
                                 </form>
                             </div>
                             <div class="card-footer text-center border-0 pt-0">

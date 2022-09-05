@@ -139,7 +139,6 @@ $(document).on('submit','.loginForm',function()
       el.find('button').html(btn_text).attr('disabled',false);
       el.parents('.card').find('.overlay-close').addClass('btn-remove');
       el.parents('.card').find('.load-overlay').hide();
-      console.log(callback);
       if(!callback.valid)
       {
         $.each(callback.form_errors,function(prefix,value)
@@ -239,16 +238,27 @@ $(document).on('submit','.ActiveForm',function()
             $('.small-model').find('.modal-body').html('<div class="text-success text-center"><i class="fa fa-check-circle"></i> '+callback.message+'</div>');
             $('.uploader').hide();
             $('.selector').show();
+            $('.dropzone').hide();
+            $('.editor-pallate').show();
+            $(document).find('.closser').click();
+            if(callback.gallary !=undefined && callback.gallary)
+            {
+              window.location=window.location;
+            }  
+            if(callback.about !=undefined && callback.about)
+            {
+              window.location=window.location;
+            } 
           }
         else
         {
             $.each(callback.uform_errors,function(key,value)
             {
-              el.find("input[aria-label='"+key+"']").addClass('is-invalid').parents('.form-group').find('.feedback').addClass('invalid-feedback').html('<i class="fa fa-exclamation-circle"></i> '+value);
+              el.find("input[aria-label='"+key+"'],textarea[aria-label='"+key+"'],select[aria-label='"+key+"']").addClass('is-invalid').parents('.form-group').find('.feedback').addClass('invalid-feedback').html('<i class="fa fa-exclamation-circle"></i> '+value);
             }); 
             $.each(callback.eform_errors,function(key,value)
             {
-              el.find("input[aria-label='"+key+"']").addClass('is-invalid').parents('.form-group').find('.feedback').addClass('invalid-feedback').html('<i class="fa fa-exclamation-circle"></i> '+value);
+              el.find("input[aria-label='"+key+"'],textarea[aria-label='"+key+"'],select[aria-label='"+key+"']").addClass('is-invalid').parents('.form-group').find('.feedback').addClass('invalid-feedback').html('<i class="fa fa-exclamation-circle"></i> '+value);
             });
         }
       },
@@ -437,4 +447,9 @@ $(document).ready(function()
         
     
     })(jQuery);
+});
+
+$(document).on('change','input[type=file]',function()
+{
+  $(this).removeClass('is-invalid').addClass('is-valid').parent().find('label').removeClass('invalid-feedback').addClass('valid-feedback').html('Filename: '+this.files[0].name);
 });
