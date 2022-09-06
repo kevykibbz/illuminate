@@ -182,7 +182,7 @@ USE_TZ = True
 
 #login
 LOGIN_URL='/accounts/login'
-LOGIN_REDIRECT_URL='/panel'
+LOGIN_REDIRECT_URL='/general/site/settings'
 LOGOUT_REDIRECT_URL='/accounts/login'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/

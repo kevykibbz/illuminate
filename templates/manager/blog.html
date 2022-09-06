@@ -1,5 +1,6 @@
 {% extends 'manager/base.html' %}
 {% load static %}
+{% load humanize}}
 {% block body %}
 <div class="page-nav no-margin row">
     <div class="container">
@@ -15,6 +16,25 @@
 <section class="our-blog">
     <div class="container">  
         <div class="blog-row row">
+            {% for blog in blogs %}
+            <div class="col-md-4 col-sm-6">
+                <div class="single-blog">
+                    <figure>
+                        <img class="img-responsive" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{{blog.blog_image.url}}" alt="{{blog.blog_head}}">
+                    </figure>
+                    <div class="blog-detail">
+                        <small>By {{blog.posted_by}} | {{blog.created_on}}</small>
+                        <h4>{{blog.blog_head}}</h4>
+                        <p>{{blog.blog_text}}</p>
+                        <div class="link">
+                            <a href="{% url 'read more' id=blog.id %}">Read more </a><i class="fas fa-long-arrow-alt-right"></i>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+            {% empty %}
             <div class="col-md-4 col-sm-6">
                 <div class="single-blog">
                     <figure>
@@ -113,6 +133,7 @@
                     </div>   
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
 </section>

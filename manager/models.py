@@ -126,6 +126,8 @@ class ContactModel(models.Model):
         return f'{self.name} contact message'
 
 
+
+
 @receiver(post_save, sender=ContactModel)
 def send_contact_email(sender, instance, created, **kwargs):
     if created and instance.message:
@@ -278,3 +280,37 @@ class SliderModel(models.Model):
         if self.slider_image:
             self.slider_image.storage.delete(self.slider_image.name)
         super().delete()
+
+#BlogsModel
+class BlogsModel(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    blog_head=models.CharField(max_length=100,null=True,blank=True)
+    posted_by=models.CharField(max_length=100,null=True,blank=True)
+    blog_text=models.TextField(max_length=100,null=True,blank=True)
+    blog_image=models.ImageField(upload_to='blogs/',null=True,blank=True)
+    created_on=models.DateTimeField(default=now)
+    class Meta:
+        db_table='blogs_tbl'
+        verbose_name_plural='blogs_tbl'
+    def __str__(self)->str:
+        return f'{self.user.username} blogs page settings'
+
+    def delete(self, using=None,keep_parents=False):
+        if self.blog_image:
+            self.blog_image.storage.delete(self.blog_image.name)
+        super().delete()
+
+class CommentModel(models.Model):
+    blog=models.ForeignKey(BlogsModel,on_delete=models.CASCADE)
+    name=models.CharField(max_length=100,blank=True,null=True)
+    phone=PhoneNumberField(null=True,blank=True,verbose_name='phone',max_length=13)
+    email=models.CharField(max_length=100,blank=True,null=True)
+    initials=models.CharField(max_length=10,blank=True,null=True)
+    bgcolor=models.CharField(max_length=10,blank=True,null=True,default=bgcolor)
+    message=models.TextField(blank=True,null=True)
+    created_on=models.DateTimeField(default=now)
+    class Meta:
+        db_table='comment_tbl'
+        verbose_name_plural='comment_tbl'
+    def __str__(self)->str:
+        return f'{self.name} comment message'

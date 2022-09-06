@@ -65,4 +65,12 @@ urlpatterns=[
     path('add/slider/image',addSlider.as_view(),name='add slider'),
     path('edit/slider/<int:id>',editSlider.as_view(),name='edit slider'),
     path('delete/slider/<int:id>',views.deleteSlider,name='delete slider'),
+
+    #blog page
+    path('site/blogs/page',views.blogsView,name='site blogs'),
+    path('add/blog',blogAdd.as_view(),name='blog add'),
+    path('edit/blog/<int:id>',editBlog.as_view(),name='edit blog'),
+    path('delete/blog/<int:id>',views.deleteBlog,name='delete blog'),
+    #read more
+    path('read/more/<int:id>',readMore.as_view(),name='read more'),
 ]

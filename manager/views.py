@@ -104,10 +104,12 @@ def blog(request):
     if SiteConstants.objects.count() == 0:
         return redirect('/installation/')
     obj=SiteConstants.objects.all()[0]
+    blogs=BlogsModel.objects.all()
     data={
         'title':'Blog',
         'obj':obj,
         'data':request.user,
+        'blogs':blogs,
     }
     return render(request,'manager/blog.html',context=data)
 
@@ -135,8 +137,38 @@ class Contact(View):
             return JsonResponse({'valid':False,'uform_errors':form.errors},content_type='application/json')
 
 
-
-
+#readMore
+class readMore(View):
+    def get(self ,request,id):
+        if SiteConstants.objects.count() == 0:
+            return redirect('/installation/')
+        obj=SiteConstants.objects.all()[0]
+        user=BlogsModel.objects.get(id=id)
+        blogs=BlogsModel.objects.all().exclude(id=id).order_by("-id")
+        comments=CommentModel.objects.filter(blog_id=id).order_by('-id')[:10]
+        count=CommentModel.objects.filter(blog_id=id).count()
+        form=CommentForm()
+        data={
+            'title':f'Read more | {user.blog_head}',
+            'obj':obj,
+            'data':request.user,
+            'form':form,
+            'comments':comments,
+            'blogs':blogs,
+            'count':count,
+            'current':user,
+        }
+        return render(request,'manager/read_more.html',context=data)
+    def post(self,request,id):
+        form=CommentForm(request.POST or None)
+        if form.is_valid():
+            usr=form.save(commit=False)
+            usr.blog_id=id
+            usr.initials=form.cleaned_data.get('name')[0].upper()
+            usr.save()
+            return JsonResponse({'valid':True,'message':'Comment posted!'},content_type='application/json')
+        else:
+            return JsonResponse({'valid':False,'uform_errors':form.errors},content_type='application/json')
 
 
 
@@ -1272,4 +1304,102 @@ def deleteSlider(request,id):
             obj.delete() 
             return JsonResponse({'valid':True,'message':'Site home page slider image deleted successfully.','id':id},content_type='application/json')       
         except SliderModel.DoesNotExist:
+            return JsonResponse({'valid':False,'message':'Item does not exist'},content_type='application/json')
+
+#blogsView
+@login_required(login_url='/accounts/login')
+@allowed_users(allowed_roles=['admins'])
+def blogsView(request):
+    if SiteConstants.objects.count() == 0:
+        return redirect('/installation/')
+    obj=SiteConstants.objects.all()[0]
+    blogs=BlogsModel.objects.order_by("-id")
+    messages=ContactModel.objects.filter(is_read=False).order_by("-id")[:3]
+    count=ContactModel.objects.filter(is_read=False).order_by("-id").count()
+    data={
+        'title':'Site blogs settings',
+        'obj':obj,
+        'data':request.user,
+        'count':count,
+        'messages':messages,
+        'blogs':blogs,
+    }
+    return render(request,'panel/blogs.html',context=data)
+
+#blogAdd
+@method_decorator(login_required(login_url='/accounts/login'),name='dispatch')
+@method_decorator(allowed_users(allowed_roles=['admins']),name='dispatch')
+class blogAdd(View):
+    def get(self,request):
+        if SiteConstants.objects.count() == 0:
+            return redirect('/installation/')
+        obj=SiteConstants.objects.all()[0]
+        messages=ContactModel.objects.filter(is_read=False).order_by("-id")[:3]
+        count=ContactModel.objects.filter(is_read=False).order_by("-id").count()
+        form=BlogsForm()
+        data={
+            'title':'Add blog',
+            'obj':obj,
+            'data':request.user,
+            'count':count,
+            'messages':messages,
+            'home':home,
+            'form':form,
+        }
+        return render(request,'panel/add_blog.html',context=data)
+
+    def post(self,request,*args ,**kwargs):
+        form=BlogsForm(request.POST,request.FILES or None)
+        if form.is_valid():
+            cat=form.save(commit=False)
+            cat.user_id=request.user.pk
+            cat.posted_by=request.user.get_full_name()
+            cat.save()
+            return JsonResponse({'valid':True,'message':'Site blog page created successfuly.'},content_type='application/json')
+        else:
+            return JsonResponse({'valid':False,'uform_errors':form.errors},content_type='application/json')
+
+
+#editBlog
+@method_decorator(login_required(login_url='/accounts/login'),name='dispatch')
+@method_decorator(allowed_users(allowed_roles=['admins']),name='dispatch')
+class editBlog(View):
+    def get(self ,request,id):
+        if SiteConstants.objects.count() == 0:
+            return redirect('/installation/')
+        obj=SiteConstants.objects.all()[0]
+        user=BlogsModel.objects.get(id=id)
+        form=BlogsForm(instance=user)
+        messages=ContactModel.objects.filter(is_read=False).order_by("-id")[:3]
+        count=ContactModel.objects.filter(is_read=False).order_by("-id").count()
+        data={
+            'title':f'Edit blog | {user.blog_head}',
+            'obj':obj,
+            'data':request.user,
+            'form':form,
+            'count':count,
+            'messages':messages,
+            'slider_edit':True
+        }
+        return render(request,'panel/add_blog.html',context=data)
+
+    def post(self,request,id,*args ,**kwargs):
+        user=SliderModel.objects.get(id=id)
+        form=BlogsForm(request.POST or None,instance=user)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'valid':True,'message':'Site blog page item updated successfuly.'},content_type='application/json')
+        else:
+            return JsonResponse({'valid':False,'uform_errors':form.errors},content_type='application/json')
+
+#deleteBlog
+@login_required(login_url='/accounts/login')
+@allowed_users(allowed_roles=['admins'])
+def deleteBlog(request,id):
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        try:
+            obj=BlogsModel.objects.get(id__exact=id)
+            obj.delete() 
+            return JsonResponse({'valid':True,'message':'ite blog page item  deleted successfully.','id':id},content_type='application/json')       
+        except BlogsModel.DoesNotExist:
             return JsonResponse({'valid':False,'message':'Item does not exist'},content_type='application/json')

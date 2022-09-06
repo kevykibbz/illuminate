@@ -549,8 +549,43 @@ class SliderForm(forms.ModelForm):
     slider_head=forms.CharField(widget=forms.TextInput(attrs={'aria-label':'slider_head','class':'form-control input-rounded'}))
     slider_text=forms.CharField(widget=forms.Textarea(attrs={'aria-label':'slider_text','class':'form-control'}))
     slider_image=forms.ImageField(widget=forms.FileInput(attrs={'aria-label':'slider_image','class':'dropify','data-default-file':True}),
+                                required=False,
                                 validators=[FileExtensionValidator(['jpg','jpeg','png','gif'],message="Invalid image extension",code="invalid_extension")]
                                 )
     class Meta:
         model=SliderModel
         fields=['slider_head','slider_text','slider_image',]
+
+class BlogsForm(forms.ModelForm):
+    blog_head=forms.CharField(widget=forms.TextInput(attrs={'aria-label':'blog_head','class':'form-control input-rounded'}))
+    blog_text=forms.CharField(widget=forms.Textarea(attrs={'aria-label':'blog_text','class':'form-control'}))
+    blog_image=forms.ImageField(widget=forms.FileInput(attrs={'aria-label':'blog_image','class':'dropify','data-default-file':True}),
+                                required=False,
+                                validators=[FileExtensionValidator(['jpg','jpeg','png','gif'],message="Invalid image extension",code="invalid_extension")]
+                                )
+    class Meta:
+        model=BlogsModel
+        fields=['blog_head','blog_text','blog_image',]
+
+#comment form
+class CommentForm(forms.ModelForm):
+    name=forms.CharField(widget=forms.TextInput(attrs={'aria-required':'true','class':'form-control  input-sm input-round','placeholder':'Full name','aria-label':'name'}),error_messages={'required':'Full name is required'})
+    phone=PhoneNumberField(widget=PhoneNumberPrefixWidget(attrs={'aria-required':'true','class':'form-control  input-sm input-round','type':'tel','aria-label':'phone','placeholder':'Phone'},initial="KE"),error_messages={'required':'Phone number is required'})
+    email=forms.EmailField(widget=forms.EmailInput(attrs={'aria-required':'true','class':'form-control  input-sm input-round','placeholder':'Email address','aria-label':'email'}),error_messages={'required':'Email address is required'})
+    message=forms.CharField(widget=forms.Textarea(attrs={'rows':5,'aria-required':'true','class':'form-control  input-sm','placeholder':'Comment','aria-label':'message'}),error_messages={'required':'Message is required','min_length':'enter atleast 6 characters long'})
+
+    class Meta:
+        model=CommentModel
+        fields=['name','phone','email','message',]
+
+
+    def clean_name(self):
+        name=self.cleaned_data['name']
+        if len(name.split(" ")) > 1:
+            first_name=name.split(" ")[0]
+            last_name=name.split(" ")[1]
+            if not str(first_name).isalpha():
+                raise forms.ValidationError('only characters are allowed')
+            elif not str(last_name).isalpha():
+                raise forms.ValidationError('only characters are allowed')
+        return name

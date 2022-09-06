@@ -1,0 +1,133 @@
+{% extends 'manager/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block body %}
+<div class="page-nav no-margin row">
+    <div class="container">
+        <div class="row">
+            <h2>Our Blogs</h2>
+            <ul>
+                <li> <a href="/"><i class="fas fa-home"></i> Home</a></li>
+                <li> <i class="fas fa-angle-double-right"></i><a href="{% url 'blog' %}"><i class="fa fa-bars"></i> Blogs</a></li>
+                <li><i class="fas fa-angle-double-right"></i> More </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row contact-rooo no-margin">
+    <div class="container">
+        <div class="row">
+        	<div class="text-part col-md-7">
+                <h2 class="m-2">{{current.blog_head}}</h2>
+               	<div class="row">
+	               	<div class="col-12">
+	               		<p>
+		                    {{current.blog_text}}
+	                	</p>
+	               	</div>
+	               	<div class="mt-3 col-12">
+	               		<img class="img-responsive" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{{current.blog_image.url}}" alt="{{current.blog_head}}">
+	               	</div>
+               </div>
+               <hr>
+                <div class="mt-3 mb-4 row">
+	            	<div class="col-12">
+	            		<h4>Comments ({{count|intcomma}})</h4>
+	            		{% for comment in comments %}
+	            		<div class="card">
+	            			<div class="card-body">
+	            				<p>{{comment.message}}</p>
+	            				<span class="mt-2 float-right text-info">{{comment.name}} | {{comment.created_on}}</span>
+	            			</div>
+	            		</div>
+	            		<br>
+	            		{% empty %}
+	            		<div class="card">
+	            			<div class="card-body">
+	            				<p>No comment found</p>
+	            			</div>
+	            		</div>
+	      				{% endfor %}
+	            	</div>
+	            	<hr>
+	            	<div class="mt-4 col-12">
+	            		<div class="editor position-relative">
+			                <div class="load-overlay" style="display:none">
+				                <span class="overlay-close btn-remove" title="close overlay">
+				                    <i class="fa fa-close"></i>
+				                </span>
+				                <div class="overlay">
+				                    <div class="row">
+				                        <div class="col-12">
+				                            <div class="loader-container">
+				                            <div class="loader">
+				                                <svg class="circular" viewBox="25 25 50 50">
+				                                <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+				                                </svg>
+				                            </div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+			            </div>
+			            <form class="ActiveForm" style="padding:20px" class="col-sm-7" novalidate method="post" action="">
+			                <h2 ><strong>|Add</strong> Comment</h2> <br>
+			                {% csrf_token %}
+			                <div class="row cont-row">
+			                    <div  class="col-sm-3"><label>Enter Name </label><span>:</span></div>
+			                    <div class="form-group col-sm-8">
+			                        {{form.name}}
+			                        <div class="feedback" style="margin-top:-22px"></div>
+			                    </div>
+			                </div>
+			                <div  class="row cont-row">
+			                    <div  class="col-sm-3"><label>Email Address </label><span>:</span></div>
+			                    <div class="form-group col-sm-8">
+			                        {{form.email}}
+			                        <div class="feedback" style="margin-top:-22px"></div>
+			                    </div>
+			                </div>
+			                <div  class="row cont-row">
+			                    <div  class="col-sm-3"><label>Mobile Number</label><span>:</span></div>
+			                    <div class="form-group col-sm-8">
+			                        {{form.phone}}
+			                        <div class="feedback float-left" style="margin-top:-22px"></div>
+			                    </div>
+			                </div>
+			                <div  class="row cont-row">
+			                    <div  class="col-sm-3"><label>Enter Message</label><span>:</span></div>
+			                    <div class="form-group col-sm-8">
+			                        {{form.message}}
+			                        <div class="feedback" style="margin-top:-22px"></div>
+			                    </div>
+			                </div> 
+			                <div style="margin-top:10px;" class="row">
+			                    <div class="col-12 text-center">
+			                        <button class="btn btn-primary btn-sm btn-round">Comment</button>
+			                    </div>
+			                </div>
+			            </form>
+			           </div>
+	            	</div>
+            	</div>
+            </div>
+            <div class="mt-2 col-md-5 col-12">
+            	<h4><strong>|Related</strong> articles</h4>
+            	{% for blog in blogs %}
+            	<div class="media">
+            		<img style="width:150px" class="mr-3 img-responsive" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{{blog.blog_image.url}}" alt="{{blog.blog_head}}">
+            		<div class="media-body">
+            			<h5 class="mt-0">{{blog.blog_head}}</h5>
+            			<p>{{blog.blog_text}}</p>
+            			<span class="mt-3 text-info float-right"><a href="{% url 'read more' id=blog.id %}">View</a></span>
+            		</div>
+            	</div>
+            	<br>
+            	{% empty %}
+            	<p class="text-center">No more articles found.</p>
+            	{% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock%}

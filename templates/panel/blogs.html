@@ -1,0 +1,84 @@
+{% extends 'panel/main.html' %}
+{% load static %}
+{% load humanize %}
+{% block body %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="breadcrumb-range-picker">
+            <span><i class="icon-calender"></i></span>
+            <span class="ml-1">{% now 'l' %}, {% now 'd m Y' %}</span>
+        </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/panel">Home</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Blogs overview</a></li>
+        </ol>
+    </div>
+</div>
+<!-- row -->
+<a href="{% url 'blog add' %}" class="float-btn btn btn-primary"><i class="fa fa-plus"></i></a>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h3 class="content-heading">Blogs overview</h3>
+        </div>
+        <div class="col-md-10 col-12 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">View site blogs ({{acount|intcomma}})</h4>
+                    <div class="table-responsive table-results">
+                        <table class="table table-responsive-sm table-stripped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Blog title</th>
+                                    <th>Blog Description</th>
+                                    <th>Blog Image</th>
+                                    <th>Posted by</th>
+                                    <th>Date Created</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for blog in blogs %}
+                                <tr id="id_{{blog.id}}">
+                                    <th>{{forloop.counter}}</th>
+                                    <td>{{blog.blog_head}}</td>
+                                    <td>{{blog.blog_text}}</td>
+                                   	<td>
+                                        <a class="image-preview" href="{{blog.blog_image.url}}" target="_blank">
+                                        	<i class="fa fa-file"></i> {{blog.blog_image}}
+                                        </a>
+                                    </td>
+                                    <td>{{blog.posted_by}}</td>
+                                    <td>{{blog.created_on}}</td>
+                                    <td>
+                                        <a  data-toggle="tooltip"  title="Edit {{blog.blog_head}}" href="{% url 'edit blog' id=blog.id %}" class="btn btn-success input-rounded"><i class="fa fa-edit"></i> Edit</a>
+                                        <a data-host="{% url 'site blogs' %}" href="{% url 'delete blog' id=blog.id %}" data-toggle="tooltip" title="Delete {{blog.blog_head}}" class="del-data btn btn-danger input-rounded" type="button"><i class="fa fa-trash"></i> Delete</a>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="9" class="text-center">
+                                        <p><i class="fa fa-excamation-circle"></i> No blogs(s) data found </p>
+                                    </td>
+                                </tr>
+                                {% endfor%}
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul class="pagination pagination-primary mt-4">
+                        {% if blogs.has_previous %}
+                        <li class="page-item active"><a class="page-link" href="{% url 'site blogs' %}?page={{blogs.previous_page_number}}"><i class="fa fa-chevron-left"></i></a></li>
+                        {% endif %}
+                        {% if blogs.has_next %}
+                        <li class="page-item active"><a class="page-link" href="{% url 'site blogs' %}?page={{blogs.next_page_number}}"><i class="fa fa-chevron-right"></i></a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

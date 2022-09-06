@@ -154,7 +154,7 @@ $(document).on('submit','.loginForm',function()
         }
         else
         {
-            window.location='/panel';
+            window.location='/general/site/settings';
         }
       }
     },
